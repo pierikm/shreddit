@@ -9,6 +9,8 @@ import UsersList from './components/User/UsersList';
 import User from './components/User';
 import Posts from './components/Posts';
 import { authenticate } from './store/session';
+import { loadPosts } from './store/posts';
+import NewPostForm from './components/Posts/NewPostForm';
 
 function App() {
   const [loaded, setLoaded] = useState(false);
@@ -17,6 +19,7 @@ function App() {
   useEffect(() => {
     (async () => {
       await dispatch(authenticate());
+      await dispatch(loadPosts());
       setLoaded(true);
     })();
   }, [dispatch]);
@@ -46,6 +49,9 @@ function App() {
         </ProtectedRoute>
         <ProtectedRoute exact path='/posts'>
           <Posts />
+        </ProtectedRoute>
+        <ProtectedRoute exact path='/posts/new'>
+          <NewPostForm />
         </ProtectedRoute>
       </Switch>
     </BrowserRouter>
