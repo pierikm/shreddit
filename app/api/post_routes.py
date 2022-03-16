@@ -29,6 +29,18 @@ def create_post():
 
         return post.to_dict()
 
+@post_routes.route('/<int:id>', methods=['PUT'])
+@login_required
+def edit_post(id):
+    form = PostForm()
+    form['csrf_token'].data = request.cookies['csrf_token']
+    post = Post.query.get(id)
+    if post.user_id == current_user.id:
+        setattr(post, 'title', form.data["title"])
+        setattr(post, "description", form.data["description"])
+        db.session.commit()
+        return post.to_dict()
+
 @post_routes.route('/<int:id>', methods=['DELETE'])
 @login_required
 def delete_post(id):

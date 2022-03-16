@@ -3,7 +3,7 @@ import { useDispatch } from "react-redux";
 import { useHistory } from 'react-router-dom';
 import { editPost, loadPosts } from "../../store/posts";
 
-function EditPostForm({ post }) {
+function EditPostForm({ post, setShowModal }) {
     const [title, setTitle] = useState(post.title);
     const [description, setDescription] = useState(post.description);
     const [errors, setErrors] = useState([]);
@@ -18,19 +18,21 @@ function EditPostForm({ post }) {
             title,
             description
         }
-        await dispatch(editPost(payload))
+        await dispatch(editPost(payload, post.id))
         await dispatch(loadPosts());
-        redirect();
+        setShowModal(false);
     }
 
     return (
         <form onSubmit={(e) => handleSubmit(e)}>
+            <label>Title</label>
             <textarea
                 placeholder="Title"
                 rows="2"
                 value={title}
                 onChange={(e) => setTitle(e.target.value)}
             />
+            <label>Description</label>
             <textarea
                 placeholder="Description"
                 rows="5"
