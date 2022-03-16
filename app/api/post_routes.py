@@ -28,3 +28,12 @@ def create_post():
         db.session.commit()
 
         return post.to_dict()
+
+@post_routes.route('/<int:id>', methods=['DELETE'])
+@login_required
+def delete_post(id):
+    post = Post.query.get(id)
+    if post.user_id == current_user.id:
+        db.session.delete(post)
+        db.session.commit()
+        return f'{post.id}'

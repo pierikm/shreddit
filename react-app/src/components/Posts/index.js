@@ -8,6 +8,7 @@ function Posts() {
     const [isLoaded, setIsLoaded] = useState(false);
     // const dispatch = useDispatch();
     const posts = useSelector(state => Object.values(state.posts));
+    const user = useSelector(state => state.session.user);
 
     useEffect(() => {
         setIsLoaded(true);
@@ -22,7 +23,9 @@ function Posts() {
                 {
                     isLoaded &&
                     posts.map(post => (
-                        <PostPreview key={post.id} post={post} />
+                        <li key={post.id}>
+                            <PostPreview userId={user.id} post={post} />
+                        </li>
                     ))
                 }
             </ul>

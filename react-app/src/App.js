@@ -11,6 +11,7 @@ import Posts from './components/Posts';
 import { authenticate } from './store/session';
 import { loadPosts } from './store/posts';
 import NewPostForm from './components/Posts/NewPostForm';
+import EditPostForm from './components/Posts/EditPostForm';
 
 function App() {
   const [loaded, setLoaded] = useState(false);
