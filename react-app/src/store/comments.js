@@ -1,16 +1,45 @@
-// const CREATE = "comments/CREATE";
+const LOAD = "comments/LOAD";
+const CREATE = "comments/CREATE";
+const EDIT = "comments/EDIT";
+const DELETE = "comments/DELETE";
 
-// const create = (comment) => ({
-//     type: CREATE,
-//     comment
-// });
+const load = (comments) => ({
+    type: LOAD,
+    comments
+});
 
-// export const loadComments = () => async dispatch => {
-//     const response = await fetch(`/api/posts/${postId}/comments`)
-//     if (response.ok) {
-//         const comments = response.json();
-//     }
-// }
+const create = (comment) => ({
+    type: CREATE,
+    comment
+});
+
+const edit = (comment) => ({
+    type: EDIT,
+    comment
+});
+
+const del = (id) => ({
+    type: DELETE,
+    id
+});
+
+export const postLoadComments = (id) => async dispatch => {
+    const response = await fetch(`/api/posts/${id}/comments`)
+    if (response.ok) {
+        const comments = await response.json();
+        await dispatch(load(comments));
+        return comments;
+    }
+};
+
+export const userLoadComments = (id) => async dispatch => {
+    const response = await fetch(`/api/users/${id}/comments`)
+    if (response.ok) {
+        const comments = await response.json();
+        await dispatch(load(comments));
+        return comments;
+    }
+};
 
 export const createComment = (payload) => async dispatch => {
     const response = await fetch(`/api/comments/`, {
@@ -19,8 +48,8 @@ export const createComment = (payload) => async dispatch => {
         body: JSON.stringify(payload)
     });
     if (response.ok) {
-        const comment = response.json();
-        // await dispatch(create(comment));
+        const comment = await response.json();
+        await dispatch(create(comment));
         return comment;
     }
 };
@@ -32,8 +61,8 @@ export const editComment = (payload, id) => async dispatch => {
         body: JSON.stringify(payload)
     });
     if (response.ok) {
-        const comment = response.json();
-        // await dispatch(create(comment));
+        const comment = await response.json();
+        await dispatch(edit(comment));
         return comment;
     }
 };
@@ -44,7 +73,7 @@ export const deleteComment = (id) => async dispatch => {
     });
     if (response.ok) {
         const commentId = response.json();
-        // await dispatch(create(comment));
+        await dispatch(del(commentId));
         return commentId;
     }
 };
@@ -53,6 +82,17 @@ const initialState = {};
 
 export default function reducer(state = initialState, action) {
     switch (action.type) {
+        case LOAD:
+            const loadState = { ...action.comments };
+            return loadState;
+        case EDIT:
+            const editState = { ...state };
+            if (editState[action.comment.id]) editState[action.comment.id] = action.comment;
+            return editState;
+        case DELETE:
+            const deleteState = { ...state };
+            if (deleteState[action.id]) delete deleteState[action.id];
+            return deleteState;
         default:
             return state;
     }

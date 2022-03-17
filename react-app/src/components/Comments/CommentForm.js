@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { createComment } from '../../store/comments'
-import { loadPosts } from "../../store/posts";
+import { postLoadComments } from "../../store/comments";
 
 function CommentForm({ postId }) {
     const [content, setContent] = useState('');
@@ -17,7 +17,7 @@ function CommentForm({ postId }) {
         const comment = await dispatch(createComment(payload))
         if (comment) {
             setContent('');
-            dispatch(loadPosts());
+            dispatch(postLoadComments(postId));
         }
     }
     return (

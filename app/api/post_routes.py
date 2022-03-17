@@ -5,6 +5,11 @@ from app.forms.post_form import PostForm
 
 post_routes = Blueprint('posts', __name__)
 
+@post_routes.route('/<int:id>/comments')
+def load_comments(id):
+    post = Post.query.get(id)
+    return post.get_comments()
+
 @post_routes.route('/')
 def posts():
     posts = Post.query.all()

@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { editComment, deleteComment } from "../../store/comments";
-import { loadPosts } from "../../store/posts";
+import { postLoadComments } from '../../store/comments';
 
 function Comment({ comment, post_id }) {
     const [editing, setEditing] = useState(false);
@@ -18,12 +18,12 @@ function Comment({ comment, post_id }) {
             content
         }
         await dispatch(editComment(payload, comment.id));
-        await dispatch(loadPosts());
+        await dispatch(postLoadComments(post_id));
     };
 
     const handleDelete = async () => {
         await dispatch(deleteComment(comment.id));
-        await dispatch(loadPosts());
+        await dispatch(postLoadComments(post_id));
     };
 
     if (editing) {
