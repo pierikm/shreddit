@@ -13,10 +13,8 @@ def posts():
 @post_routes.route('/', methods=["POST"])
 @login_required
 def create_post():
-    print("HIT CREATE")
     form = PostForm()
     form['csrf_token'].data = request.cookies['csrf_token']
-    print(form.validate_on_submit())
     if form.validate_on_submit():
         post = Post(
             user_id=int(current_user.id),

@@ -53,7 +53,7 @@ export const editPost = (payload, id) => async dispatch => {
         const post = response.json();
         await dispatch(edit(post));
     }
-}
+};
 
 export const deletePost = (id) => async dispatch => {
     const response = await fetch(`/api/posts/${id}`, {
