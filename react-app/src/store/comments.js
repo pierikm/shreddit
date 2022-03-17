@@ -1,9 +1,16 @@
-const CREATE = "comments/CREATE";
+// const CREATE = "comments/CREATE";
 
-const create = (comment) => ({
-    type: CREATE,
-    comment
-});
+// const create = (comment) => ({
+//     type: CREATE,
+//     comment
+// });
+
+// export const loadComments = () => async dispatch => {
+//     const response = await fetch(`/api/posts/${postId}/comments`)
+//     if (response.ok) {
+//         const comments = response.json();
+//     }
+// }
 
 export const createComment = (payload) => async dispatch => {
     const response = await fetch(`/api/comments/`, {
@@ -13,7 +20,8 @@ export const createComment = (payload) => async dispatch => {
     });
     if (response.ok) {
         const comment = response.json();
-        await dispatch(create(comment));
+        // await dispatch(create(comment));
+        return comment;
     }
 };
 
@@ -21,17 +29,6 @@ const initialState = {};
 
 export default function reducer(state = initialState, action) {
     switch (action.type) {
-        case LOAD:
-
-        case CREATE:
-            const id = action.comment.id;
-            const createComment = action.comment;
-            const createState = { ...state, id: createComment };
-            return
-        case EDIT:
-
-        case DELETE:
-
         default:
             return state;
     }

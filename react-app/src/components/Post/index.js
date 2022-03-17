@@ -1,11 +1,12 @@
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
+import CommentForm from "../Comments/CommentForm";
+import Comment from "../Comments";
 
 function Post() {
     const [isLoaded, setIsLoaded] = useState(false);
     const { postId } = useParams("postId")
-    console.log(postId);
 
     const post = useSelector(state => state.posts[postId]);
 
@@ -25,6 +26,14 @@ function Post() {
                 post.image_url &&
                 <img src={post.image_url} alt={post.title} />
             }
+            <CommentForm postId={postId} />
+            <ul>
+                {
+                    Object.values(post.comments).map(comment => (
+                        <Comment key={comment.id} comment={comment} />
+                    ))
+                }
+            </ul>
         </>
     )
 }
