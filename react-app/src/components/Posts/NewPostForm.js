@@ -1,6 +1,7 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { useHistory } from 'react-router-dom';
+import { validatePost } from "./postValidations";
 import { createPost, loadPosts } from "../../store/posts";
 
 function NewPostForm() {
@@ -8,7 +9,7 @@ function NewPostForm() {
     const [description, setDescription] = useState('');
     const [image_url, setImage] = useState('');
     const [postType, setPostType] = useState("text");
-    // const [errors, setErrors] = useState([]);
+    const [errors, setErrors] = useState([]);
 
     const dispatch = useDispatch();
     const history = useHistory();
@@ -22,11 +23,18 @@ function NewPostForm() {
         if (postType === "image") payload.image_url = image_url;
         else payload.description = description;
 
-        console.log(payload);
-        await dispatch(createPost(payload))
-        await dispatch(loadPosts());
-        redirect();
+
+        if (!errors.length) {
+            await dispatch(createPost(payload))
+            await dispatch(loadPosts());
+            redirect();
+        }
     }
+
+    useEffect(() => {
+        if (postType === "image") validatePost(postType, title, undefined, image_url, setErrors)
+        else validatePost(postType, title, description, undefined, setErrors)
+    }, [title, description, image_url])
 
     return (
         <>
@@ -58,6 +66,9 @@ function NewPostForm() {
                 }
                 <button>Submit</button>
             </form>
+            {errors.map(error => (
+                <div key={error}>{error}</div>
+            ))}
         </>
     )
 }
