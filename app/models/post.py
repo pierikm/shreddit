@@ -22,6 +22,9 @@ class Post(db.Model):
                 score -= 1
         return score
 
+    def get_comments(self):
+        return { comment.id: comment.to_dict() for comment in self.comments }
+
     def to_dict(self):
         return {
             "id": self.id,
