@@ -6,7 +6,8 @@ class Post(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey("users.id"), nullable=False)
     title = db.Column(db.String(255), nullable=False)
-    description = db.Column(db.Text, nullable=False)
+    description = db.Column(db.Text)
+    image_url = db.Column(db.String(255))
 
     user = db.relationship("User", back_populates='posts')
     comments = db.relationship("Comment", back_populates='post')
@@ -28,7 +29,8 @@ class Post(db.Model):
             "username": self.user.username,
             "title": self.title,
             "description": self.description,
+            "image_url": self.image_url,
             "comments": { comment.id: comment.to_dict() for comment in self.comments },
-            "votes": { vote.id: vote.to_dict() for vote in self.votes },
+            "votes": { vote.user_id: vote.to_dict() for vote in self.votes },
             "score": self.score()
         }

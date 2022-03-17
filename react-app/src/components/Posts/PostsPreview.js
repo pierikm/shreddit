@@ -16,7 +16,9 @@ function PostPreview({ post, userId }) {
     return (
         <>
             <span>{post.score}</span>
-            <h2>{post.title}</h2>
+            <NavLink exact to={`/posts/${post.id}`}>
+                <h2>{post.title}</h2>
+            </NavLink>
             <span>{post.username}</span>
             {userId === post.user_id &&
                 <div>

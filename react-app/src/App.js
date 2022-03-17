@@ -8,10 +8,11 @@ import ProtectedRoute from './components/auth/ProtectedRoute';
 import UsersList from './components/User/UsersList';
 import User from './components/User';
 import Posts from './components/Posts';
+import Post from './components/Post';
 import { authenticate } from './store/session';
 import { loadPosts } from './store/posts';
 import NewPostForm from './components/Posts/NewPostForm';
-import EditPostForm from './components/Posts/EditPostForm';
+// import EditPostForm from './components/Posts/EditPostForm';
 
 function App() {
   const [loaded, setLoaded] = useState(false);
@@ -53,6 +54,9 @@ function App() {
         </ProtectedRoute>
         <ProtectedRoute exact path='/posts/new'>
           <NewPostForm />
+        </ProtectedRoute>
+        <ProtectedRoute exact path='/posts/:postId'>
+          <Post />
         </ProtectedRoute>
       </Switch>
     </BrowserRouter>

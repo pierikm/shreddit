@@ -32,7 +32,7 @@ export const loadPosts = () => async dispatch => {
 };
 
 export const createPost = (payload) => async dispatch => {
-    const response = await fetch('/api/posts/new', {
+    const response = await fetch('/api/posts/', {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload)
