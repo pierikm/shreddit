@@ -6,12 +6,11 @@ from app.forms.post_form import PostForm
 post_routes = Blueprint('posts', __name__)
 
 @post_routes.route('/')
-@login_required
 def posts():
     posts = Post.query.all()
     return {post.id: post.to_dict() for post in posts}
 
-@post_routes.route('/new', methods=["POST"])
+@post_routes.route('/', methods=["POST"])
 @login_required
 def create_post():
     print("HIT CREATE")
@@ -22,7 +21,8 @@ def create_post():
         post = Post(
             user_id=int(current_user.id),
             title=form.data["title"],
-            description=form.data["description"]
+            description=form.data["description"],
+            image_url=form.data["image_url"]
         )
         db.session.add(post)
         db.session.commit()

@@ -1,16 +1,16 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-import { useHistory } from 'react-router-dom';
+// import { useHistory } from 'react-router-dom';
 import { editPost, loadPosts } from "../../store/posts";
 
 function EditPostForm({ post, setShowModal }) {
     const [title, setTitle] = useState(post.title);
     const [description, setDescription] = useState(post.description);
-    const [errors, setErrors] = useState([]);
+    // const [errors, setErrors] = useState([]);
 
     const dispatch = useDispatch();
-    const history = useHistory();
-    const redirect = () => history.replace(`/posts`);
+    // const history = useHistory();
+    // const redirect = () => history.replace(`/posts`);
 
     const handleSubmit = async (e) => {
         e.preventDefault();

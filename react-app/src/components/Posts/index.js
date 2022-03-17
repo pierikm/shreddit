@@ -1,18 +1,19 @@
-import { useEffect, useDispatch, useState } from "react";
-import { useSelector } from "react-redux";
+import { useEffect, useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import { NavLink } from "react-router-dom";
 import PostPreview from "./PostsPreview";
-// import { loadPosts } from "../../store/posts";
 
 function Posts() {
     const [isLoaded, setIsLoaded] = useState(false);
-    // const dispatch = useDispatch();
+    const dispatch = useDispatch();
     const posts = useSelector(state => Object.values(state.posts));
     const user = useSelector(state => state.session.user);
 
     useEffect(() => {
-        setIsLoaded(true);
-    }, [])
+        (async () => {
+            setIsLoaded(true);
+        })();
+    }, [dispatch]);
 
     return (
         <>
