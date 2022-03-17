@@ -40,6 +40,7 @@ export const createPost = (payload) => async dispatch => {
     if (response.ok) {
         const post = response.json();
         await dispatch(create(post));
+        return post;
     }
 };
 
@@ -74,7 +75,9 @@ export default function reducer(state = initialState, action) {
         case CREATE:
             const id = action.post.id;
             const createPost = action.post;
-            return { ...state, id: createPost }
+            const createState = { ...state };
+            createState[id] = createPost
+            return createState;
         case EDIT:
             const editState = { ...state };
             const editPost = action.post;

@@ -23,3 +23,23 @@ def create_comment():
         db.session.commit()
 
         return comment.to_dict()
+
+@comment_routes.route('/<int:id>', methods=['PUT'])
+@login_required
+def edit_comment(id):
+    form = CommentForm()
+    form['csrf_token'].data = request.cookies['csrf_token']
+    comment = Comment.query.get(id)
+    if comment.user_id == current_user.id:
+        setattr(comment, 'content', form.data["content"])
+        db.session.commit()
+        return comment.to_dict()
+
+@comment_routes.route('/<int:id>', methods=['DELETE'])
+@login_required
+def delete_comment(id):
+    comment = Comment.query.get(id)
+    if comment.user_id == current_user.id:
+        db.session.delete(comment)
+        db.session.commit()
+        return f'{comment.id}'

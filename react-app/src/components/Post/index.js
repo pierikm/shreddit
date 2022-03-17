@@ -15,6 +15,7 @@ function Post() {
     }, [])
 
     if (!isLoaded) return null;
+
     return (
         <>
             <h2>{post.title}</h2>
@@ -30,7 +31,7 @@ function Post() {
             <ul>
                 {
                     Object.values(post.comments).map(comment => (
-                        <Comment key={comment.id} comment={comment} />
+                        <Comment key={comment.id} post_id={postId} comment={comment} />
                     ))
                 }
             </ul>

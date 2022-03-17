@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { createComment } from '../../store/comments'
+import { loadPosts } from "../../store/posts";
 
 function CommentForm({ postId }) {
     const [content, setContent] = useState('');
@@ -8,12 +9,16 @@ function CommentForm({ postId }) {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        console.log(postId);
+        // console.log(postId);
         const payload = {
             post_id: postId,
             content
         }
-        await dispatch(createComment(payload))
+        const comment = await dispatch(createComment(payload))
+        if (comment) {
+            setContent('');
+            dispatch(loadPosts());
+        }
     }
     return (
         <>
