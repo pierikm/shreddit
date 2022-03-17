@@ -8,8 +8,14 @@ class Comment(db.Model):
     post_id = db.Column(db.Integer, db.ForeignKey("posts.id"), nullable=False)
     parent_id = db.Column(db.Integer)
     content = db.Column(db.Text, nullable=False)
-    title = db.Column(db.String(255), nullable=False)
-    description = db.Column(db.Text, nullable=False)
 
     user = db.relationship("User", back_populates='comments')
     post = db.relationship("Post", back_populates='comments')
+
+    def to_dict(self):
+        return {
+            "id": self.id,
+            "user": self.user,
+            "parent_id": self.parent_id,
+            "content": self.content
+        }

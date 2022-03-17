@@ -5,17 +5,22 @@ import LoginForm from './components/auth/LoginForm';
 import SignUpForm from './components/auth/SignUpForm';
 import NavBar from './components/NavBar';
 import ProtectedRoute from './components/auth/ProtectedRoute';
-import UsersList from './components/UsersList';
+import UsersList from './components/User/UsersList';
 import User from './components/User';
+import Posts from './components/Posts';
 import { authenticate } from './store/session';
+import { loadPosts } from './store/posts';
+import NewPostForm from './components/Posts/NewPostForm';
+import EditPostForm from './components/Posts/EditPostForm';
 
 function App() {
   const [loaded, setLoaded] = useState(false);
   const dispatch = useDispatch();
 
   useEffect(() => {
-    (async() => {
+    (async () => {
       await dispatch(authenticate());
+      await dispatch(loadPosts());
       setLoaded(true);
     })();
   }, [dispatch]);
@@ -28,20 +33,26 @@ function App() {
     <BrowserRouter>
       <NavBar />
       <Switch>
-        <Route path='/login' exact={true}>
+        <Route exact path='/login'>
           <LoginForm />
         </Route>
-        <Route path='/sign-up' exact={true}>
+        <Route exact path='/sign-up'>
           <SignUpForm />
         </Route>
-        <ProtectedRoute path='/users' exact={true} >
-          <UsersList/>
+        <ProtectedRoute exact path='/users' >
+          <UsersList />
         </ProtectedRoute>
-        <ProtectedRoute path='/users/:userId' exact={true} >
+        <ProtectedRoute exact path='/users/:userId' >
           <User />
         </ProtectedRoute>
-        <ProtectedRoute path='/' exact={true} >
+        <ProtectedRoute exact path='/' >
           <h1>My Home Page</h1>
+        </ProtectedRoute>
+        <ProtectedRoute exact path='/posts'>
+          <Posts />
+        </ProtectedRoute>
+        <ProtectedRoute exact path='/posts/new'>
+          <NewPostForm />
         </ProtectedRoute>
       </Switch>
     </BrowserRouter>
