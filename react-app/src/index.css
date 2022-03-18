@@ -1,7 +1,9 @@
 :root {
-    --bg-base: rgb(10, 14, 18);
+    --bg-base: #0a0e12;
     --font-light-blue: #b1dbfb;
-    --font-post-title: #83c9ff;
+    --font-post-title: #86e2d5;
+    --font-light-green: #86e2d5;
+    --font-light-pink: #dcc6e0;
 }
 
 body {
@@ -11,7 +13,7 @@ body {
     min-height: 100vh;
     max-width: 100vw;
     background-color: var(--bg-base);
-    color: var(--font-light-blue);
+    color: var(--font-light-pink);
 }
 
 body * {

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
+import SplashPage from './components/SplashPage';
 import LoginForm from './components/auth/LoginForm';
 import SignUpForm from './components/auth/SignUpForm';
 import NavBar from './components/NavBar';
@@ -9,6 +10,7 @@ import UsersList from './components/User/UsersList';
 import User from './components/User';
 import Posts from './components/Posts';
 import Post from './components/Post';
+import NotFound from './components/NotFound';
 import { authenticate } from './store/session';
 import { loadPosts } from './store/posts';
 import NewPostForm from './components/Posts/NewPostForm';
@@ -47,7 +49,7 @@ function App() {
           <User />
         </ProtectedRoute>
         <ProtectedRoute exact path='/' >
-          <h1>My Home Page</h1>
+          <SplashPage />
         </ProtectedRoute>
         <ProtectedRoute exact path='/posts'>
           <Posts />
@@ -58,6 +60,9 @@ function App() {
         <ProtectedRoute exact path='/posts/:postId'>
           <Post />
         </ProtectedRoute>
+        <Route>
+          <NotFound />
+        </Route>
       </Switch>
     </BrowserRouter>
   );

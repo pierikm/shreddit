@@ -24,7 +24,7 @@ function Post() {
 
     return (
         <>
-            <h2>{post.title}</h2>
+            <h2 className="post-title">{post.title}</h2>
             {
                 post.description &&
                 <p>{post.description}</p>
