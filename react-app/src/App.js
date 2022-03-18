@@ -13,6 +13,7 @@ import Post from './components/Post';
 import NotFound from './components/NotFound';
 import { authenticate } from './store/session';
 import { loadPosts } from './store/posts';
+import { loadVotes } from './store/votes';
 import NewPostForm from './components/Posts/NewPostForm';
 // import EditPostForm from './components/Posts/EditPostForm';
 
@@ -24,6 +25,7 @@ function App() {
     (async () => {
       await dispatch(authenticate());
       await dispatch(loadPosts());
+      await dispatch(loadVotes());
       setLoaded(true);
     })();
   }, [dispatch]);

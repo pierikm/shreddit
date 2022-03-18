@@ -25,6 +25,9 @@ class Post(db.Model):
     def get_comments(self):
         return { comment.id: comment.to_dict() for comment in self.comments }
 
+    def get_votes(self):
+        return { vote.user_id: vote.to_dict() for vote in self.votes }
+
     def to_dict(self):
         return {
             "id": self.id,
