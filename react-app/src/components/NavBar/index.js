@@ -11,8 +11,13 @@ const NavBar = () => {
   return (
     <nav className='navbar'>
       <div>
-        <NavLink to='/posts' exact={true} activeClassName='active'>
-          Shreddit
+        <NavLink to='/posts' exact={true} activeClassName='active' className='shreddit-logo-container'>
+          <span>
+            <i
+              className="fa-solid fa-person-snowboarding fa-3x"
+              id="snowboard-logo"></i>
+          </span>
+          <span id="shreddit">Shreddit</span>
         </NavLink>
       </div>
       {!session.user &&

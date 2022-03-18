@@ -4,6 +4,12 @@
     --font-post-title: #86e2d5;
     --font-light-green: #86e2d5;
     --font-light-pink: #dcc6e0;
+    --button-hover: #0a0e12;
+    --button-bg-hover: #b1dbfb;
+}
+
+#root {
+    min-height: 100vh;
 }
 
 body {
@@ -18,6 +24,24 @@ body {
 
 body * {
     box-sizing: border-box;
+}
+
+.button {
+    text-decoration: none;
+    color: var(--font-light-blue);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: solid var(--font-light-blue) 1px;
+    border-radius: 0.5rem;
+    background-color: var(--bg-base);
+    cursor: pointer;
+}
+
+.button:hover{
+    background-color: var(--button-bg-hover);
+    color: var(--button-hover);
+    box-shadow: 0 0 2rem var(--button-bg-hover);
 }
 
 /* * {
