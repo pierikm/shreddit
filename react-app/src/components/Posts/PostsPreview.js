@@ -4,6 +4,7 @@ import { NavLink } from "react-router-dom";
 import { Modal2 } from '../Modal';
 import { deletePost } from "../../store/posts"
 import EditPostForm from "./EditPostForm";
+import "./posts.css";
 
 function PostPreview({ post, userId }) {
     const [showModal, setShowModal] = useState(false);
@@ -17,14 +18,14 @@ function PostPreview({ post, userId }) {
         <>
             <span>{post.score}</span>
             <NavLink exact to={`/posts/${post.id}`}>
-                <h2>{post.title}</h2>
+                <h2 className="post-title">{post.title}</h2>
             </NavLink>
             <span>{post.username}</span>
             {userId === post.user_id &&
-                <div>
+                <span>
                     <button onClick={() => !showModal && setShowModal(true)}>Edit</button>
                     <button onClick={handleDelete}>Delete</button>
-                </div>
+                </span>
             }
             {
                 showModal &&

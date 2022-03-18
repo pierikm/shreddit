@@ -1,6 +1,7 @@
 :root {
     --bg-base: rgb(10, 14, 18);
     --font-light-blue: #b1dbfb;
+    --font-post-title: #83c9ff;
 }
 
 body {
@@ -16,3 +17,7 @@ body {
 body * {
     box-sizing: border-box;
 }
+
+/* * {
+    outline:1px red solid;
+} */
