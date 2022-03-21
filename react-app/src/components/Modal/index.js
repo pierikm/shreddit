@@ -46,7 +46,7 @@ export const Modal2 = props => {
                 </div>
                 <div className='modal-body'>{props.children}</div>
                 <div className='modal-footer'>
-                    <button onClick={props.onClose} className='button'>
+                    <button onClick={props.onClose} className='modal-close-btn button'>
                         Close
                     </button>
                 </div>

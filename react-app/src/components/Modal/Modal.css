@@ -95,8 +95,10 @@
   .modal-content {
     width: 500px;
     background-color: #FFF;
+    border: 1px solid var(--modal-border);
     color: black;
-    border-radius: 3px;
+    border-radius: 1rem;
+    padding:1rem;
   }
 
   .modal-header, .modal-footer {
@@ -105,17 +107,24 @@
 
   .modal-title {
     margin: 0;
+    font-size: 1.5rem;
   }
 
   .modal-body {
     padding: 10px;
-    border-top: 1px solid #eee;
-    border-bottom: 1px solid #eee;
+    border-top: 1px solid var(--modal-border);
+    border-bottom: 1px solid var(--modal-border);
     display: flex;
     justify-content: center;
     align-items: center;
   }
 
-  .modal-body div {
+  /* .modal-body div {
     margin-bottom: 20px;
+  } */
+
+  .modal-close-btn {
+    padding: 0.5rem;
+    font-size: 1rem;
+    margin-left: 10px;
   }

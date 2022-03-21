@@ -5,8 +5,10 @@
     --font-post-title-hover: #4ecdc4;
     --font-light-green: #86e2d5;
     --font-light-pink: #dcc6e0;
+    --font-error: #d64541;
     --button-hover: #0a0e12;
     --button-bg-hover: #b1dbfb;
+    --modal-border: #336e7b;
 }
 
 #root {

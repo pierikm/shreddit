@@ -39,6 +39,11 @@ function EditPostForm({ post, setShowModal }) {
     return (
         <>
             <div className="edit-post-container">
+                <div className="edit-errors-container">
+                    {errors.map(error => (
+                        <div id="error" key={error}>{error}</div>
+                    ))}
+                </div>
                 <form
                     className="edit-post-form"
                     onSubmit={(e) => handleSubmit(e)}>
@@ -70,11 +75,8 @@ function EditPostForm({ post, setShowModal }) {
                             />
                         </>
                     }
-                    <button>Submit</button>
+                    <button className="button modal-submit">Submit</button>
                 </form>
-                {errors.map(error => (
-                    <div key={error}>{error}</div>
-                ))}
             </div>
         </>
     )

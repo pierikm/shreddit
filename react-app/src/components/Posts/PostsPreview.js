@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
-import { Modal2 } from '../Modal';
+import { Modal2, Modal } from '../Modal';
 import { deletePost, loadPosts } from "../../store/posts"
 import { createVote, deleteVote, loadVotes } from "../../store/votes";
 import EditPostForm from "./EditPostForm";
@@ -9,6 +9,7 @@ import "./posts.css";
 
 function PostPreview({ post, userId }) {
     const [showModal, setShowModal] = useState(false);
+    const [showDelete, setShowDelete] = useState(false);
     const dispatch = useDispatch();
     const votes = useSelector(state => state.votes[post.id]);
 
@@ -86,7 +87,7 @@ function PostPreview({ post, userId }) {
                             </button>
                             <button
                                 className="button"
-                                onClick={handleDelete}>
+                                onClick={() => setShowDelete(true)}>
                                 Delete
                             </button>
                         </span>
@@ -105,6 +106,20 @@ function PostPreview({ post, userId }) {
                             post={post}
                             setShowModal={setShowModal}
                         />
+                    </Modal2>
+                }
+                {
+                    showDelete && <Modal2
+                        title="Delete Post?"
+                        onClose={() => setShowDelete(false)}
+                        show={showDelete}
+                    >
+                        <button
+                            id="confirm-delete-btn"
+                            className="button"
+                            onClick={handleDelete}>
+                            Confirm Delete
+                        </button>
                     </Modal2>
                 }
             </div>
