@@ -1,0 +1,21 @@
+.edit > .modal > .modal-content {
+    background-color: var(--bg-base);
+    color: var(--font-light-blue);
+    min-width: 40rem;
+}
+
+.edit-post-form {
+    display: grid;
+    grid-template-columns: 6rem 20rem;
+}
+
+.edit-post-form > label {
+    display: flex;
+    justify-content: flex-end;
+    margin: 0 0.5rem 0;
+}
+
+.edit-post-container {
+    display: grid;
+    grid-template-columns: 26rem 14rem;
+}

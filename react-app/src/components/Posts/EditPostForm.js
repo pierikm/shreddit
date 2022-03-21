@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { validatePost } from "./postValidations";
 import { editPost, loadPosts } from "../../store/posts";
+import './editpost.css';
 
 function EditPostForm({ post, setShowModal }) {
     const [title, setTitle] = useState(post.title);
@@ -37,40 +38,44 @@ function EditPostForm({ post, setShowModal }) {
 
     return (
         <>
-            <form onSubmit={(e) => handleSubmit(e)}>
-                <label>Title</label>
-                <textarea
-                    placeholder="Title"
-                    rows="2"
-                    value={title}
-                    onChange={(e) => setTitle(e.target.value)}
-                />
-                {postType === "text" &&
-                    <>
-                        <label>Description</label>
-                        <textarea
-                            placeholder="Description"
-                            rows="5"
-                            value={description}
-                            onChange={(e) => setDescription(e.target.value)}
-                        />
-                    </>
-                }
-                {postType === "image" &&
-                    <>
-                        <label>Image Link</label>
-                        <input
-                            placeholder="Image URL"
-                            value={image_url}
-                            onChange={(e) => setImage(e.target.value)}
-                        />
-                    </>
-                }
-                <button>Submit</button>
-            </form>
-            {errors.map(error => (
-                <div key={error}>{error}</div>
-            ))}
+            <div className="edit-post-container">
+                <form
+                    className="edit-post-form"
+                    onSubmit={(e) => handleSubmit(e)}>
+                    <label>Title</label>
+                    <textarea
+                        placeholder="Title"
+                        rows="2"
+                        value={title}
+                        onChange={(e) => setTitle(e.target.value)}
+                    />
+                    {postType === "text" &&
+                        <>
+                            <label>Description</label>
+                            <textarea
+                                placeholder="Description"
+                                rows="5"
+                                value={description}
+                                onChange={(e) => setDescription(e.target.value)}
+                            />
+                        </>
+                    }
+                    {postType === "image" &&
+                        <>
+                            <label>Image Link</label>
+                            <input
+                                placeholder="Image URL"
+                                value={image_url}
+                                onChange={(e) => setImage(e.target.value)}
+                            />
+                        </>
+                    }
+                    <button>Submit</button>
+                </form>
+                {errors.map(error => (
+                    <div key={error}>{error}</div>
+                ))}
+            </div>
         </>
     )
 }

@@ -13,6 +13,7 @@ function PostPreview({ post, userId }) {
     const votes = useSelector(state => state.votes[post.id]);
 
     const handleDelete = async () => {
+        console.log("*************", post.id)
         await dispatch(deletePost(post.id))
     };
 
@@ -92,19 +93,21 @@ function PostPreview({ post, userId }) {
                     }
                 </div>
             </div>
-            {
-                showModal &&
-                <Modal2
-                    title="Edit Post"
-                    onClose={() => setShowModal(false)}
-                    show={showModal}
-                >
-                    <EditPostForm
-                        post={post}
-                        setShowModal={setShowModal}
-                    />
-                </Modal2>
-            }
+            <div className="edit">
+                {
+                    showModal &&
+                    <Modal2
+                        title="Edit Post"
+                        onClose={() => setShowModal(false)}
+                        show={showModal}
+                    >
+                        <EditPostForm
+                            post={post}
+                            setShowModal={setShowModal}
+                        />
+                    </Modal2>
+                }
+            </div>
         </>
     )
 }
