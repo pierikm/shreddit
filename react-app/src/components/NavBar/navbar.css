@@ -1,0 +1,21 @@
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 5rem;
+}
+
+#snowboard-logo {
+    color: white;
+    margin: 0 1rem 0;
+}
+
+#shreddit {
+    font-size: 2.5rem;
+    font-family: 'Satisfy', cursive;
+    color: var(--font-light-blue);
+}
+
+.shreddit-logo-container {
+    text-decoration: none;
+}

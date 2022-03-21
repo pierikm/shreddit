@@ -1,0 +1,34 @@
+.splash-container {
+    min-height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+#splash-btn {
+    padding: 0.5rem;
+    font-size: 1.5rem;
+    margin: 1rem;
+    white-space: nowrap;
+}
+
+#splash-btn:hover{
+    background-color: var(--button-bg-hover);
+    color: var(--button-hover);
+    box-shadow: 0 0 2rem var(--button-bg-hover);
+}
+
+#splash-title {
+    font-size: 3rem;
+    font-family: 'Satisfy', cursive;
+    color: var(--font-light-blue);
+}
+
+.splash-container {
+    margin-top: 5rem;
+}
+
+#splash-gif {
+    height: 30rem;
+}

@@ -3,6 +3,7 @@ import { useDispatch } from "react-redux";
 import { useHistory } from 'react-router-dom';
 import { validatePost } from "./postValidations";
 import { createPost, loadPosts } from "../../store/posts";
+import { createVote, loadVotes } from "../../store/votes";
 
 function NewPostForm() {
     const [title, setTitle] = useState('');
@@ -25,8 +26,11 @@ function NewPostForm() {
 
 
         if (!errors.length) {
-            await dispatch(createPost(payload))
+            const newPost = await dispatch(createPost(payload))
+            await dispatch(createVote({ vote: "true" }, newPost.id));
             await dispatch(loadPosts());
+            await dispatch(loadVotes());
+            console.log(newPost);
             redirect();
         }
     }

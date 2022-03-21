@@ -11,7 +11,7 @@ class Post(db.Model):
 
     user = db.relationship("User", back_populates='posts')
     comments = db.relationship("Comment", back_populates='post')
-    votes = db.relationship("Vote", back_populates='post')
+    votes = db.relationship("Vote", back_populates='post', cascade="all, delete-orphan")
 
     def score(self):
         score = 0
@@ -24,6 +24,9 @@ class Post(db.Model):
 
     def get_comments(self):
         return { comment.id: comment.to_dict() for comment in self.comments }
+
+    def get_votes(self):
+        return { vote.user_id: vote.to_dict() for vote in self.votes }
 
     def to_dict(self):
         return {

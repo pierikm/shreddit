@@ -1,0 +1,69 @@
+.login-form-container {
+    min-width: 100%;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-areas:
+    ". form ."
+    ". link .";
+    gap: 0.5rem;
+}
+
+.login-form {
+    grid-area: form;
+    margin-top: 10rem;
+    display: grid;
+    grid-template-columns: 1fr 3fr;
+    gap: 0.5rem;
+    grid-template-areas:
+    "er er"
+    "el ei"
+    "pl pi"
+    "bt bt";
+}
+
+.login-form > div > * {
+    font-size: 1rem;
+}
+
+.sign-up-link {
+    grid-area: link;
+}
+
+.sign-up-link > * {
+    font-size: 1rem;
+}
+
+.login-btn {
+    grid-area: bt;
+    padding: 0.5rem;
+    font-size: 1rem;
+    margin-bottom: 1rem;
+}
+
+.login-errors {
+    grid-area: er;
+}
+
+.login-email-label {
+    grid-area: el;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.login-password-label {
+    grid-area: pl;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.login-error {
+    color: var(--font-error);
+}
+
+.sign-up-here {
+    color: var(--font-post-title);
+}
+
+.sign-up-here:hover {
+    color: white;
+}
