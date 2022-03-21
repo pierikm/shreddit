@@ -1,4 +1,104 @@
 h2.post-title {
     text-decoration: none;
     color: var(--font-post-title);
+    font-size: 2rem;
+    margin: 0 0 0.5rem;
+}
+
+h2.post-title:hover {
+    color: var(--font-post-title-hover);
+}
+
+.post-link {
+    text-decoration: none;
+}
+
+.vote-icon {
+    height: 1.5rem;
+    color: white;
+    /* background-color: white; */
+    filter: invert(100%);
+    transform: rotate(-0.125turn);
+    cursor: pointer;
+    margin: 0.4rem 0 0.4rem;
+    outline: 0 !important;
+}
+
+.upvote-icon.selected {
+    filter: invert(30%) sepia(57%) saturate(3611%) hue-rotate(358deg) brightness(98%) contrast(84%);
+}
+
+.downvote-icon.selected {
+    filter: invert(14%) sepia(100%) saturate(6460%) hue-rotate(278deg) brightness(103%) contrast(123%);
+}
+
+.post-preview-list > li {
+    list-style: none;
+    display: flex;
+    margin: 1rem 0 0;
+}
+
+.score-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 6rem;
+}
+
+.preview-pic {
+    height: 6rem;
+    padding: 0.5rem;
+}
+
+.preview-pic.text {
+    filter: invert(100%);
+    padding-top: 0;
+}
+
+.preview-pic.img {
+    object-fit: cover;
+    aspect-ratio: 1/1;
+}
+
+.preview-dtls-container {
+    display: flex;
+    flex-direction: column;
+    /* justify-content: space-between; */
+    margin: 0 0 0 1rem;
+}
+
+.preview-user-btns {
+    display: flex;
+}
+
+.preview-user-btns > button {
+    margin: 0 0.5rem 0;
+    border-radius: 4px;
+}
+
+.preview-user-container {
+    display: flex;
+}
+
+.preview-username {
+    margin: 0 0.5rem 0;
+    font-weight: bold;
+}
+
+.posts-page {
+    display: flex;
+    justify-content: space-between;
+}
+
+.sidebar {
+    min-width: 15rem;
+}
+
+.create-post-link {
+    text-decoration: none;
+    font-size: 1.5rem;
+    white-space: nowrap;
+    width: fit-content;
+    padding: 0.5rem;
+    margin-top: 2rem;
 }

@@ -2,6 +2,7 @@
     --bg-base: #0a0e12;
     --font-light-blue: #b1dbfb;
     --font-post-title: #86e2d5;
+    --font-post-title-hover: #4ecdc4;
     --font-light-green: #86e2d5;
     --font-light-pink: #dcc6e0;
     --button-hover: #0a0e12;
@@ -41,7 +42,7 @@ body * {
 .button:hover{
     background-color: var(--button-bg-hover);
     color: var(--button-hover);
-    box-shadow: 0 0 2rem var(--button-bg-hover);
+    /* box-shadow: 0 0 2rem var(--button-bg-hover); */
 }
 
 /* * {

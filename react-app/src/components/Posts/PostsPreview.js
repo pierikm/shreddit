@@ -48,23 +48,50 @@ function PostPreview({ post, userId }) {
 
     return (
         <>
-            <span>
-                <button onClick={() => handleVote('true')}>upvote</button>
+            <div className="score-container">
+                <img
+                    className={'vote-icon upvote-icon' + `${votes && votes[userId]?.vote === true ? ' selected' : ''}`}
+                    src="/static/snowboard_icon.png"
+                    onClick={() => handleVote('true')} />
                 <div>
                     {post.score}
                 </div>
-                <button onClick={() => handleVote('false')}>downvote</button>
-            </span>
-            <NavLink exact to={`/ posts / ${post.id}`}>
-                <h2 className="post-title">{post.title}</h2>
-            </NavLink>
-            <span>{post.username}</span>
-            {userId === post.user_id &&
-                <span>
-                    <button onClick={() => !showModal && setShowModal(true)}>Edit</button>
-                    <button onClick={handleDelete}>Delete</button>
-                </span>
+                <img
+                    className={'vote-icon downvote-icon' + `${votes && votes[userId]?.vote === false ? ' selected' : ''}`}
+                    src="/static/ski_icon.png"
+                    onClick={() => handleVote('false')} />
+            </div>
+            {post?.image_url ?
+                <img
+                    className="preview-pic img"
+                    src={post.image_url} /> :
+                <img
+                    className="preview-pic text"
+                    src="/static/paragraph_icon.png" />
             }
+            <div className="preview-dtls-container">
+                <NavLink className="post-link" exact to={`/posts/${post.id}`}>
+                    <h2 className="post-title">{post.title}</h2>
+                </NavLink>
+                <div className="preview-user-container">
+                    <span className="preview-posted-by">posted by</span>
+                    <span className="preview-username">{post.username}</span>
+                    {userId === post.user_id &&
+                        <span className="preview-user-btns">
+                            <button
+                                className="button"
+                                onClick={() => !showModal && setShowModal(true)}>
+                                Edit
+                            </button>
+                            <button
+                                className="button"
+                                onClick={handleDelete}>
+                                Delete
+                            </button>
+                        </span>
+                    }
+                </div>
+            </div>
             {
                 showModal &&
                 <Modal2

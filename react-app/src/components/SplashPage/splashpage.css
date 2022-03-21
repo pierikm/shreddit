@@ -13,6 +13,12 @@
     white-space: nowrap;
 }
 
+#splash-btn:hover{
+    background-color: var(--button-bg-hover);
+    color: var(--button-hover);
+    box-shadow: 0 0 2rem var(--button-bg-hover);
+}
+
 #splash-title {
     font-size: 3rem;
     font-family: 'Satisfy', cursive;

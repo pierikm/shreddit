@@ -17,19 +17,28 @@ function Posts() {
 
     return (
         <>
-            <NavLink exact to='/posts/new'>
-                Create a Post
-            </NavLink>
-            <ul>
-                {
-                    isLoaded &&
-                    posts.map(post => (
-                        <li key={post.id}>
-                            <PostPreview userId={user.id} post={post} />
-                        </li>
-                    ))
-                }
-            </ul>
+            <div className="posts-page">
+                <ul className="post-preview-list">
+                    {
+                        isLoaded &&
+                        posts.map(post => (
+                            <li key={post.id}>
+                                <PostPreview userId={user.id} post={post} />
+                            </li>
+                        ))
+                    }
+                </ul>
+                <div className="sidebar">
+                    <div>
+
+                        <NavLink
+                            className="create-post-link button"
+                            exact to='/posts/new'>
+                            Create a Post
+                        </NavLink>
+                    </div>
+                </div>
+            </div>
         </>
     )
 }
