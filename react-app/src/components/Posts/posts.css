@@ -24,6 +24,10 @@ h2.post-title:hover {
     outline: 0 !important;
 }
 
+.downvote-icon {
+    transform: rotate(0.375turn);
+}
+
 .upvote-icon.selected {
     filter: invert(30%) sepia(57%) saturate(3611%) hue-rotate(358deg) brightness(98%) contrast(84%);
 }
@@ -48,6 +52,7 @@ h2.post-title:hover {
 .preview-pic {
     height: 6rem;
     padding: 0.5rem;
+    outline: 0 !important;
 }
 
 .preview-pic.text {

@@ -17,17 +17,17 @@ function PostPreview({ post, userId }) {
     };
 
     const handleVote = async (strVote) => {
-        console.log("vote", votes[userId]);
-        console.log("strVote", strVote);
+        // console.log("vote", votes[userId]);
+        // console.log("strVote", strVote);
         const payload = {
             vote: strVote
         };
         if (votes[userId] === undefined) {
-            console.log("No vote -> create vote");
+            // console.log("No vote -> create vote");
             await dispatch(createVote(payload, post.id));
         }
         else if (votes[userId].vote) {
-            console.log("Upvote -> delete vote");
+            // console.log("Upvote -> delete vote");
             await dispatch(deleteVote(votes[userId].id))
             if (strVote === 'false') {
                 console.log("create downvote");
@@ -35,14 +35,14 @@ function PostPreview({ post, userId }) {
             }
         }
         else if (!votes[userId].vote) {
-            console.log("Downvote -> delete vote");
+            // console.log("Downvote -> delete vote");
             await dispatch(deleteVote(votes[userId].id))
             if (strVote === 'true') {
-                console.log("create upvote");
+                // console.log("create upvote");
                 await dispatch(createVote(payload, post.id));
             }
         }
-        await dispatch(loadPosts())
+        await dispatch(loadPosts());
         await dispatch(loadVotes());
     };
 
