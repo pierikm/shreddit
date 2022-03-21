@@ -67,3 +67,8 @@
 .sign-up-here:hover {
     color: white;
 }
+
+.create-post-container {
+    display: flex;
+    justify-content: flex-end;
+}

@@ -29,8 +29,7 @@ function Posts() {
                     }
                 </ul>
                 <div className="sidebar">
-                    <div>
-
+                    <div className="create-post-container">
                         <NavLink
                             className="create-post-link button"
                             exact to='/posts/new'>
