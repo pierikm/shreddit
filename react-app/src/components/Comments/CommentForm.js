@@ -38,13 +38,15 @@ function CommentForm({ postId }) {
 
     return (
         <>
-            <form onSubmit={(e) => handleSubmit(e)}>
+            <form className="comment-form" onSubmit={(e) => handleSubmit(e)}>
+                {/* <label className="add-comment-label">Add a comment</label> */}
                 <textarea
+                    className="comment-input input"
                     rows="5"
                     value={content}
                     onChange={(e) => setContent(e.target.value)}
                 />
-                <button>Submit</button>
+                <button className="comment-btn button">Submit Comment</button>
             </form>
             {
                 showErrors &&

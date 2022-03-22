@@ -2,11 +2,14 @@ import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useParams, useHistory } from "react-router-dom";
 import { Modal2 } from '../Modal';
-import { deletePost } from "../../store/posts"
+import { deletePost, loadSinglePost } from "../../store/posts"
+import { createVote, deleteVote } from "../../store/votes";
 import EditPostForm from "../Posts/EditPostForm";
 import CommentForm from "../Comments/CommentForm";
 import Comment from "../Comments";
+import SideBar from "../SideBar";
 import { postLoadComments } from "../../store/comments";
+import "./Post.css";
 
 function Post() {
     const [isLoaded, setIsLoaded] = useState(false);
@@ -18,6 +21,7 @@ function Post() {
     const post = useSelector(state => state.posts[postId]);
     const comments = useSelector(state => state.comments);
     const user = useSelector(state => state.session.user);
+    const votes = useSelector(state => state.posts[postId]?.votes);
 
     const history = useHistory();
     const redirect = () => history.replace(`/posts`);
@@ -25,6 +29,31 @@ function Post() {
     const handleDelete = async () => {
         redirect();
         await dispatch(deletePost(post.id));
+    };
+
+    const handleVote = async (strVote) => {
+        console.log(votes);
+        const payload = {
+            vote: strVote
+        };
+        if (votes[user.id] === undefined) {
+            await dispatch(createVote(payload, post.id));
+        }
+        else if (votes[user.id].vote) {
+            await dispatch(deleteVote(votes[user.id].id))
+            if (strVote === 'false') {
+                console.log("create downvote");
+                await dispatch(createVote(payload, post.id));
+            }
+        }
+        else if (!votes[user.id].vote) {
+            await dispatch(deleteVote(votes[user.id].id))
+            if (strVote === 'true') {
+                await dispatch(createVote(payload, postId));
+            }
+        }
+        await dispatch(loadSinglePost(postId));
+        // await dispatch(loadVotes());
     };
 
     useEffect(() => {
@@ -36,39 +65,66 @@ function Post() {
 
     if (!isLoaded) return null;
 
+    else if (!post) return null;
+
     return (
         <>
-            <h2 className="post-title">{post.title}</h2>
-            {
-                post.description &&
-                <p>{post.description}</p>
-            }
-            {
-                post.image_url &&
-                <img src={post.image_url} alt={post.title} />
-            }
-            {user.id === post.user_id &&
-                <span className="preview-user-btns">
-                    <button
-                        className="button"
-                        onClick={() => !showModal && setShowModal(true)}>
-                        Edit
-                    </button>
-                    <button
-                        className="button"
-                        onClick={() => setShowDelete(true)}>
-                        Delete
-                    </button>
-                </span>
-            }
-            <CommentForm postId={postId} />
-            <ul>
-                {
-                    Object.values(comments).map(comment => (
-                        <Comment key={comment.id} post_id={postId} comment={comment} />
-                    ))
-                }
-            </ul>
+            <div className="post-page">
+                <div>
+                    <div className="post-details-container">
+                        <div className="score-container">
+                            <img
+                                alt="upvote"
+                                className={'vote-icon upvote-icon' + `${votes && votes[user.id]?.vote === true ? ' selected' : ''}`}
+                                src="/static/snowboard_icon.png"
+                                onClick={() => handleVote('true')} />
+                            <div>
+                                {post?.score}
+                            </div>
+                            <img
+                                alt="downvote"
+                                className={'vote-icon downvote-icon' + `${votes && votes[user.id]?.vote === false ? ' selected' : ''}`}
+                                src="/static/ski_icon.png"
+                                onClick={() => handleVote('false')} />
+                        </div>
+                        <div className="post-details">
+                            <h2 className="post-title-post">{post?.title}</h2>
+                            {
+                                post?.description &&
+                                <p className="post-description">{post?.description}</p>
+                            }
+                            {
+                                post?.image_url &&
+                                <img src={post?.image_url} alt={post?.title} />
+                            }
+                            {user?.id === post?.user_id &&
+                                <span className="preview-user-btns">
+                                    <button
+                                        id="post-edit-btn"
+                                        className="button"
+                                        onClick={() => !showModal && setShowModal(true)}>
+                                        Edit
+                                    </button>
+                                    <button
+                                        className="button"
+                                        onClick={() => setShowDelete(true)}>
+                                        Delete
+                                    </button>
+                                </span>
+                            }
+                        </div>
+                    </div>
+                    <CommentForm postId={postId} />
+                    <ul>
+                        {
+                            Object.values(comments).map(comment => (
+                                <Comment key={comment.id} post_id={postId} comment={comment} />
+                            ))
+                        }
+                    </ul>
+                </div>
+                <SideBar user={user} />
+            </div>
             <div className="edit">
                 {
                     showModal &&

@@ -124,3 +124,33 @@ h2.post-title:hover {
 .posting-as-username {
     font-weight: bold;
 }
+
+.sort-btn-container {
+    position: absolute;
+    top: 79px;
+    height: 32px;
+    min-width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    /* border-bottom: 1px solid var(--font-light-blue); */
+    padding-left: 15rem;
+}
+
+.sort-btn-container > * {
+    margin: 0 0.5rem 0;
+    font-size: 1rem;
+    position: relative;
+    top: 1px;
+}
+
+.sort-btn-container > button {
+    height: 100%;
+    padding: 0.2rem 0.5rem 0;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+}
+
+button.sort {
+    border-bottom: 1px solid var(--bg-base);
+}

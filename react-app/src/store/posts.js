@@ -1,4 +1,5 @@
 const LOAD = 'posts/LOAD';
+const LOAD_SINGLE = 'posts/LOAD_SINGLE';
 const CREATE = 'posts/CREATE';
 const EDIT = 'posts/EDIT';
 const DELETE = 'posts/DELETE';
@@ -6,6 +7,11 @@ const DELETE = 'posts/DELETE';
 const load = (posts) => ({
     type: LOAD,
     posts
+});
+
+const loadSingle = (post) => ({
+    type: LOAD_SINGLE,
+    post
 });
 
 const create = (post) => ({
@@ -28,6 +34,14 @@ export const loadPosts = () => async dispatch => {
     if (response.ok) {
         const posts = await response.json();
         dispatch(load(posts));
+    }
+};
+
+export const loadSinglePost = (id) => async dispatch => {
+    const response = await fetch(`/api/posts/${id}`);
+    if (response.ok) {
+        const post = await response.json();
+        dispatch(loadSingle(post));
     }
 };
 
@@ -72,6 +86,11 @@ export default function reducer(state = initialState, action) {
     switch (action.type) {
         case LOAD:
             return { ...action.posts }
+        case LOAD_SINGLE:
+            const singleState = { ...state };
+            const singlePost = action.post;
+            singleState[singlePost.id] = singlePost;
+            return singleState;
         case CREATE:
             const id = action.post.id;
             const createPost = action.post;

@@ -12,6 +12,11 @@ def load_posts():
     posts = Post.query.all()
     return {post.id: post.to_dict() for post in posts}
 
+@post_routes.route('/<int:id>', methods=["GET"])
+def loads_single_post(id):
+    post = Post.query.get(id)
+    return post.to_dict()
+
 @post_routes.route('/<int:id>/comments', methods=["GET"])
 def load_comments(id):
     post = Post.query.get(id)
