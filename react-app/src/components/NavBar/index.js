@@ -21,11 +21,11 @@ const NavBar = () => {
         </NavLink>
       </div>
       {!session.user &&
-        <div>
-          <NavLink className="button" to='/login' exact={true} activeClassName='active'>
+        <div className='nav-log-sign-btn-container'>
+          <NavLink className="button navbar-btn navbar-login" to='/login' exact={true} activeClassName='active'>
             Login
           </NavLink>
-          <NavLink className="button" to='/sign-up' exact={true} activeClassName='active'>
+          <NavLink className="button navbar-btn navbar-signup" to='/sign-up' exact={true} activeClassName='active'>
             Sign Up
           </NavLink>
         </div>

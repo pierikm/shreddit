@@ -4,7 +4,9 @@
     grid-template-columns: 1fr 18rem 1fr;
     grid-template-areas:
     ". form ."
-    ". link .";
+    ". link ."
+    ". demo ."
+    ;
     gap: 0.5rem;
 }
 
@@ -19,6 +21,12 @@
     "el ei"
     "pl pi"
     "bt bt";
+}
+
+.demo-btn {
+    grid-area: demo;
+    padding: 0.5rem;
+    font-size: 1rem;
 }
 
 .login-form > div > * {
@@ -37,7 +45,7 @@
     grid-area: bt;
     padding: 0.5rem;
     font-size: 1rem;
-    margin-bottom: 1rem;
+    margin-bottom: 0.5rem;
     /* margin: 0 4rem 1rem; */
 }
 

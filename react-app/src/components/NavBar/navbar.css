@@ -19,3 +19,14 @@
 .shreddit-logo-container {
     text-decoration: none;
 }
+
+.navbar-btn {
+    padding: 0.5rem;
+    margin: 0 0.5rem 0;
+    font-size: 1rem;
+    white-space: nowrap;
+}
+
+.nav-log-sign-btn-container {
+    display: flex;
+}
