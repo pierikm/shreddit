@@ -14,6 +14,9 @@ function NewPostForm() {
     const [errors, setErrors] = useState([]);
     const [showErrors, setShowErrors] = useState(false);
 
+    // eslint-disable-next-line
+    const reg = new RegExp('(http(s?):)|([/|.|\w|\s])*\.(?:jpg|jpeg|gif|png)');
+
     const dispatch = useDispatch();
     const history = useHistory();
     const redirect = () => history.replace(`/posts`);
@@ -25,6 +28,9 @@ function NewPostForm() {
         }
         if (postType === "image") payload.image_url = image_url;
         else payload.description = description;
+
+
+        console.log(errors);
 
         setShowErrors(true);
 
@@ -106,12 +112,19 @@ function NewPostForm() {
             {postType === "image" && image_url &&
                 <div className="img-preview-container">
                     <h3>Image Preview</h3>
-                    <img
-                        alt="preview"
-                        className="create-preview-img"
-                        src={`${image_url}`}
-                        onError={(e) => (e.target.src = "https://st3.depositphotos.com/23594922/31822/v/600/depositphotos_318221368-stock-illustration-missing-picture-page-for-website.jpg")}
-                    />
+                    {reg.test(image_url) ?
+                        <img
+                            alt="preview"
+                            className="create-preview-img"
+                            src={image_url}
+                        /> :
+                        <img
+                            alt="preview"
+                            className="create-preview-img"
+                            src="https://st3.depositphotos.com/23594922/31822/v/600/depositphotos_318221368-stock-illustration-missing-picture-page-for-website.jpg"
+                        />
+
+                    }
                 </div>
             }
         </ div>
