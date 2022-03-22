@@ -1,0 +1,55 @@
+.signup-form-container {
+    min-width: 100%;
+    display: grid;
+    grid-template-columns: 1fr 21rem 1fr;
+    grid-template-areas:
+    ". form ."
+    ". link .";
+    gap: 0.5rem;
+}
+
+.login-link {
+    grid-area: link;
+}
+
+.signup-form {
+    grid-area: form;
+    margin-top: 10rem;
+    display: grid;
+    grid-template-columns: 2fr 3fr;
+    gap: 0.5rem;
+    grid-template-areas:
+    "er er"
+    "ul ui"
+    "el ei"
+    "pl pi"
+    "cpl cpi"
+    "bt bt";
+}
+
+.signup-errors {
+    grid-area: er;
+}
+
+.username-label {
+    grid-area: ul;
+}
+
+.username-input {
+    grid-area: ui;
+}
+
+.signup-btn {
+    grid-area: bt;
+    padding: 0.5rem;
+    font-size: 1rem;
+    margin-bottom: 1rem;
+}
+
+.login-here {
+    color: var(--font-post-title);
+}
+
+.login-here:hover {
+    color: white;
+}

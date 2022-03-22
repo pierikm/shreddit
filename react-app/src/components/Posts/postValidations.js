@@ -1,13 +1,16 @@
 const isValidHttpUrl = (string) => {
-    let url;
+    // let url;
+    // eslint-disable-next-line
+    const reg = new RegExp('(http(s?):)|([/|.|\w|\s])*\.(?:jpg|jpeg|gif|png)');
 
-    try {
-        url = new URL(string);
-    } catch (_) {
-        return false;
-    }
+    // try {
+    //     url = new URL(string);
+    // } catch (_) {
+    //     return false;
+    // }
 
-    return url.protocol === "http:" || url.protocol === "https:";
+    return reg.test(string);
+    // return url.protocol === "http:" || url.protocol === "https:";
 }
 
 export const validatePost = (postType, title, description, imageUrl, setErrors) => {
