@@ -1,11 +1,13 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux'
 import { Redirect, NavLink } from 'react-router-dom';
 import { signUp } from '../../store/session';
+import { signupValidators } from './SignUpValidators';
 import './signupform.css';
 
 const SignUpForm = () => {
   const [errors, setErrors] = useState([]);
+  const [showErrors, setShowErrors] = useState(false);
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -15,13 +17,18 @@ const SignUpForm = () => {
 
   const onSignUp = async (e) => {
     e.preventDefault();
-    if (password === repeatPassword) {
+    setShowErrors(true);
+    if (!errors.length) {
       const data = await dispatch(signUp(username, email, password));
       if (data) {
         setErrors(data)
       }
     }
   };
+
+  useEffect(() => {
+    signupValidators(username, email, password, repeatPassword, setErrors);
+  }, [username, email, password, repeatPassword])
 
   const updateUsername = (e) => {
     setUsername(e.target.value);
@@ -47,11 +54,14 @@ const SignUpForm = () => {
     <>
       <div className='signup-form-container'>
         <form className='signup-form' onSubmit={onSignUp}>
-          <div className='signup-errors'>
-            {errors.map((error, ind) => (
-              <div id="error" key={ind}>{error}</div>
-            ))}
-          </div>
+          {
+            showErrors &&
+            <div className='signup-errors'>
+              {errors.map((error, ind) => (
+                <div id="error" key={ind}>{error}</div>
+              ))}
+            </div>
+          }
           <label className='username-label'>User Name</label>
           <input
             className='username-input'
