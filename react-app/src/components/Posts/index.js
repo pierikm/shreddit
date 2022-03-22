@@ -15,6 +15,8 @@ function Posts() {
         })();
     }, [dispatch]);
 
+    if (!isLoaded) return null;
+
     return (
         <>
             <div className="posts-page">
@@ -29,13 +31,16 @@ function Posts() {
                     }
                 </ul>
                 <div className="sidebar">
-                    <div>
-
+                    <div className="create-post-link-container">
                         <NavLink
                             className="create-post-link button"
                             exact to='/posts/new'>
                             Create a Post
                         </NavLink>
+                        <div className="posting-as-container">
+                            <span className="posting-as">posting as </span>
+                            <span className="posting-as-username">{user.username}</span>
+                        </div>
                     </div>
                 </div>
             </div>
