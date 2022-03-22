@@ -9,9 +9,10 @@
     display: grid;
     grid-template-columns: 5rem 1fr;
     max-width: 70rem;
-    border: 1px solid var(--modal-border);
+    /* border: 1px solid var(--modal-border); */
     border-radius: 1rem;
-    padding: 1rem;
+    margin: 1rem 0 2rem;
+    /* padding: 1rem; */
     background-color: var(--bg-base);
 }
 
@@ -20,6 +21,7 @@
     justify-content: space-between;
     min-width: 100%;
     padding: 2rem;
+    padding-right: 0;
 }
 
 #post-edit-btn {
@@ -29,7 +31,7 @@
 .comment-form {
     display: flex;
     align-items: flex-end;
-    margin: 1rem 0 1rem;
+    margin: 1rem 2rem 1rem;
 }
 
 .comment-btn {

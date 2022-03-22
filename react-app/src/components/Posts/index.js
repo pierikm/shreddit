@@ -23,7 +23,7 @@ function Posts() {
 
     const changeSort = async (sort) => {
         setSortBy(sort);
-        await dispatch(loadPosts());
+        // await dispatch(loadPosts());
     }
 
     if (!isLoaded) return null;
