@@ -1,7 +1,7 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
-import { Modal2, Modal } from '../Modal';
+import { Modal2 } from '../Modal';
 import { deletePost, loadPosts } from "../../store/posts"
 import { createVote, deleteVote, loadVotes } from "../../store/votes";
 import EditPostForm from "./EditPostForm";
@@ -14,7 +14,6 @@ function PostPreview({ post, userId }) {
     const votes = useSelector(state => state.votes[post.id]);
 
     const handleDelete = async () => {
-        console.log("*************", post.id)
         await dispatch(deletePost(post.id))
     };
 
@@ -52,6 +51,7 @@ function PostPreview({ post, userId }) {
         <>
             <div className="score-container">
                 <img
+                    alt="upvote"
                     className={'vote-icon upvote-icon' + `${votes && votes[userId]?.vote === true ? ' selected' : ''}`}
                     src="/static/snowboard_icon.png"
                     onClick={() => handleVote('true')} />
@@ -59,15 +59,18 @@ function PostPreview({ post, userId }) {
                     {post.score}
                 </div>
                 <img
+                    alt="downvote"
                     className={'vote-icon downvote-icon' + `${votes && votes[userId]?.vote === false ? ' selected' : ''}`}
                     src="/static/ski_icon.png"
                     onClick={() => handleVote('false')} />
             </div>
             {post?.image_url ?
                 <img
+                    alt="thumbnail"
                     className="preview-pic img"
                     src={post.image_url} /> :
                 <img
+                    alt="text thumbnail"
                     className="preview-pic text"
                     src="/static/paragraph_icon.png" />
             }
