@@ -10,7 +10,7 @@ function SplashPage() {
     return (
         <div className="splash-container">
             <h2 id="splash-title">Welcome to Shreddit!</h2>
-            <img id="splash-gif" src={data[rand]} />
+            <img alt="splash" id="splash-gif" src={data[rand]} />
             <div>
                 <NavLink
                     to='/posts'

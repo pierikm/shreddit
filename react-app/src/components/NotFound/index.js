@@ -9,7 +9,7 @@ function NotFound() {
     return (
         <div className="not-found-container">
             <h2>404 Out of Bounds</h2>
-            <img src={data[rand]} />
+            <img alt="not found" src={data[rand]} />
         </ div>
     )
 }

@@ -40,7 +40,7 @@ function NewPostForm() {
     useEffect(() => {
         if (postType === "image") validatePost(postType, title, undefined, image_url, setErrors)
         else validatePost(postType, title, description, undefined, setErrors)
-    }, [title, description, image_url])
+    }, [title, description, image_url, postType])
 
     return (
         <div className="create-container">
@@ -103,12 +103,15 @@ function NewPostForm() {
                 }
                 <button className="create-form-btn button">Submit</button>
             </form>
-            {image_url &&
+            {postType === "image" && image_url &&
                 <div className="img-preview-container">
                     <h3>Image Preview</h3>
                     <img
-                        src={image_url}
-                        onError={(e) => (e.target.src = "https://st3.depositphotos.com/23594922/31822/v/600/depositphotos_318221368-stock-illustration-missing-picture-page-for-website.jpg")} />
+                        alt="preview"
+                        className="create-preview-img"
+                        src={`${image_url}`}
+                        onError={(e) => (e.target.src = "https://st3.depositphotos.com/23594922/31822/v/600/depositphotos_318221368-stock-illustration-missing-picture-page-for-website.jpg")}
+                    />
                 </div>
             }
         </ div>
