@@ -49,6 +49,7 @@ function EditPostForm({ post, setShowModal }) {
                     onSubmit={(e) => handleSubmit(e)}>
                     <label>Title</label>
                     <textarea
+                        className="input"
                         placeholder="Title"
                         rows="2"
                         value={title}
@@ -58,6 +59,7 @@ function EditPostForm({ post, setShowModal }) {
                         <>
                             <label>Description</label>
                             <textarea
+                                className="input"
                                 placeholder="Description"
                                 rows="5"
                                 value={description}
@@ -69,6 +71,7 @@ function EditPostForm({ post, setShowModal }) {
                         <>
                             <label>Image Link</label>
                             <input
+                                className="input"
                                 placeholder="Image URL"
                                 value={image_url}
                                 onChange={(e) => setImage(e.target.value)}
