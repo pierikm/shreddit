@@ -50,6 +50,11 @@ body * {
 .input {
     font-size: 1rem;
     font-family: sans-serif;
+    /* background-color: rgba(0, 0, 0, 0.6); */
+    border: 1px solid var(--bg-base);
+    border-radius: 5px;
+    padding: 0.2rem;
+    /* color: var(--font-light-pink); */
 }
 
 /* * {
