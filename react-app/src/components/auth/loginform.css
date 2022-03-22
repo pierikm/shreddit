@@ -1,7 +1,7 @@
 .login-form-container {
     min-width: 100%;
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-columns: 3fr 1fr 3fr;
     grid-template-areas:
     ". form ."
     ". link .";
@@ -38,6 +38,7 @@
     padding: 0.5rem;
     font-size: 1rem;
     margin-bottom: 1rem;
+    /* margin: 0 4rem 1rem; */
 }
 
 .login-errors {
