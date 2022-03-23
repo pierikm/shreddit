@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
 import { Modal2 } from '../Modal';
-import { deletePost, loadPosts, loadSinglePost } from "../../store/posts"
+import { deletePost, loadSinglePost } from "../../store/posts"
 import { createVote, deleteVote, loadVotes } from "../../store/votes";
 import EditPostForm from "./EditPostForm";
 import "./posts.css";

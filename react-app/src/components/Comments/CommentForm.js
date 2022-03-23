@@ -18,7 +18,7 @@ function CommentForm({ postId }) {
         setShowErrors(true)
 
         if (!errors.length) {
-            const comment = await dispatch(createComment(payload))
+            await dispatch(createComment(payload))
             setContent('');
             setShowErrors(false);
             dispatch(postLoadComments(postId));
