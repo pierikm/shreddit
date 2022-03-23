@@ -95,7 +95,7 @@ function Post() {
                             }
                             {
                                 post?.image_url &&
-                                <a href={post?.image_url}>
+                                <a href={post?.image_url} target="_blank">
                                     <img className="post-image" src={post?.image_url} alt={post?.title} />
                                 </a>
                             }
