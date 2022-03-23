@@ -8,9 +8,26 @@ const validateEmail = (email) => {
 
 export const signupValidators = (username, email, password, repeatPassword, setErrors) => {
     const errors = [];
-    if (username.length < 2) errors.push("Username must be at least 2 characters.");
+    if (username.length < 1) errors.push("Please provide a username.");
+    else if (username.length < 2) errors.push("Username must be at least 2 characters.");
     if (username.length > 40) errors.push("Username must be no longer than 40 characters.");
-    if (!validateEmail(email)) errors.push("Invalid email address.");
+    if (email.length < 1) errors.push("Please provide an email address.");
+    else if (!validateEmail(email)) errors.push("Invalid email address.");
+    if (password.length < 1) errors.push("Please provide a password.");
     if (password !== repeatPassword) errors.push("Passwords don't match.");
     setErrors(errors);
 };
+
+export const safeData = (data) => {
+    const newData = [];
+
+    data.forEach(ele => {
+        const split = ele.split(" : ");
+        // console.log(ele.split(" : "));
+        newData.push(split[1]);
+    })
+
+
+
+    return newData
+}

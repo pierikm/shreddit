@@ -53,3 +53,11 @@
 .login-here:hover {
     color: white;
 }
+
+.signup-email-label,
+.username-label,
+.signup-pass-label,
+.signup-cpass-label {
+    display: flex;
+    justify-content: flex-end;
+}
