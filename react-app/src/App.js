@@ -15,6 +15,7 @@ import { authenticate } from './store/session';
 import { loadPosts } from './store/posts';
 import { loadVotes } from './store/votes';
 import NewPostForm from './components/Posts/NewPostForm';
+import Footer from './components/Footer';
 // import EditPostForm from './components/Posts/EditPostForm';
 
 function App() {
@@ -66,6 +67,7 @@ function App() {
           <NotFound />
         </Route>
       </Switch>
+      <Footer />
     </BrowserRouter>
   );
 }

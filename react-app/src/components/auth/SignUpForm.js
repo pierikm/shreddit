@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux'
 import { Redirect, NavLink } from 'react-router-dom';
 import { signUp } from '../../store/session';
-import { signupValidators } from './SignUpValidators';
+import { signupValidators, safeData } from './SignUpValidators';
 import './signupform.css';
 
 const SignUpForm = () => {
@@ -21,7 +21,8 @@ const SignUpForm = () => {
     if (!errors.length) {
       const data = await dispatch(signUp(username, email, password));
       if (data) {
-        setErrors(data)
+        const newData = safeData(data);
+        setErrors(newData)
       }
     }
   };
@@ -93,7 +94,6 @@ const SignUpForm = () => {
             name='repeat_password'
             onChange={updateRepeatPassword}
             value={repeatPassword}
-            required={true}
           ></input>
           <button
             className='button signup-btn'

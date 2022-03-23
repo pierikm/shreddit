@@ -10,6 +10,7 @@ function SplashPage() {
     return (
         <div className="splash-container">
             <h2 id="splash-title">Welcome to Shreddit!</h2>
+            <div className="splash-description">A forum to share your snowboarding and skiing adventures.</div>
             <img alt="splash" id="splash-gif" src={data[rand]} />
             <div>
                 <NavLink

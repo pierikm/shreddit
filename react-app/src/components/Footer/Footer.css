@@ -1,0 +1,22 @@
+.footer {
+    min-width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    bottom: 10px;
+}
+
+.footer-icon {
+    /* height: 1.8rem; */
+    filter: brightness(0) invert(100%);
+}
+
+.footer-ele {
+    width: 5rem;
+}
+
+.about {
+    color: var(--font-post-title);
+    font-size: 1rem;
+}
