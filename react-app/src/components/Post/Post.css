@@ -52,9 +52,36 @@
 }
 
 .comment-section {
-    margin: 2.5rem 0 2.5rem 2.5rem;
+    margin: 1rem 0 2.5rem 2.5rem;
 }
 
 .comment-username {
     font-weight: bold;
+}
+
+.comment-edit-btns {
+    display: flex;
+}
+
+.edit-comment-btn {
+    margin-right: 1rem;
+    border-radius: 4px;
+}
+
+.comments-title {
+    margin-left: 5rem;
+    margin-bottom: 0rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid var(--font-light-blue);
+}
+
+.comment-container {
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid var(--font-light-blue);
+}
+
+.comment-edit-input {
+    margin: 0.5rem 0 0.5rem;
+    width: 20rem;
 }

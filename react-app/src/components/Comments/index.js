@@ -29,15 +29,34 @@ function Comment({ comment, post_id }) {
     if (editing) {
         return (
             <div className="comment-container">
-                <form onSubmit={(e) => handleSubmit(e)}>
+                <div>
+                    <span className="comment-username">
+                        {comment.user.username}
+                    </span>
+                </div>
+                <form className="comment-edit-form" onSubmit={(e) => handleSubmit(e)}>
                     <textarea
+                        className="comment-edit-input"
                         rows="5"
                         value={content}
                         onChange={(e) => setContent(e.target.value)}
                     />
-                    <button className="button">Submit</button>
+                    <span className="comment-edit-btns">
+                        <button
+                            type="submit"
+                            className="button edit-comment-btn">
+                            Submit
+                        </button>
+                        <button
+                            className="button edit-comment-btn"
+                            onClick={(e) => {
+                                e.preventDefault();
+                                setEditing(false);
+                            }}>
+                            Cancel
+                        </button>
+                    </span>
                 </form>
-                <button className="button" onClick={() => setEditing(false)}>Cancel</button>
             </ div>
         )
     }
@@ -50,9 +69,9 @@ function Comment({ comment, post_id }) {
             </div>
             <p>{comment.content}</p>
             {user.id === comment.user.id &&
-                <span>
-                    <button className="button" onClick={() => setEditing(true)}>Edit</button>
-                    <button className="button" onClick={() => handleDelete()}>Delete</button>
+                <span className="comment-edit-btns">
+                    <button className="button edit-comment-btn" onClick={() => setEditing(true)}>Edit</button>
+                    <button className="button edit-comment-btn" onClick={() => handleDelete()}>Delete</button>
                 </ span>
             }
         </ div>

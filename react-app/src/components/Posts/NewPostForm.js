@@ -107,7 +107,11 @@ function NewPostForm() {
                         />
                     </>
                 }
-                <button className="create-form-btn button">Submit</button>
+                <button
+                    type="submit"
+                    className="create-form-btn button">
+                    Submit
+                </button>
             </form>
             {postType === "image" && image_url &&
                 <div className="img-preview-container">
