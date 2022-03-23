@@ -28,30 +28,34 @@ function Comment({ comment, post_id }) {
 
     if (editing) {
         return (
-            <>
+            <div className="comment-container">
                 <form onSubmit={(e) => handleSubmit(e)}>
                     <textarea
                         rows="5"
                         value={content}
                         onChange={(e) => setContent(e.target.value)}
                     />
-                    <button>Submit</button>
+                    <button className="button">Submit</button>
                 </form>
-                <button onClick={() => setEditing(false)}>Cancel</button>
-            </>
+                <button className="button" onClick={() => setEditing(false)}>Cancel</button>
+            </ div>
         )
     }
     return (
-        <>
-            <div>{comment.user.username}</div>
+        <div className="comment-container">
+            <div>
+                <span className="comment-username">
+                    {comment.user.username}
+                </span>
+            </div>
             <p>{comment.content}</p>
             {user.id === comment.user.id &&
-                <>
-                    <button onClick={() => setEditing(true)}>Edit</button>
-                    <button onClick={() => handleDelete()}>Delete</button>
-                </>
+                <span>
+                    <button className="button" onClick={() => setEditing(true)}>Edit</button>
+                    <button className="button" onClick={() => handleDelete()}>Delete</button>
+                </ span>
             }
-        </>
+        </ div>
     )
 }
 

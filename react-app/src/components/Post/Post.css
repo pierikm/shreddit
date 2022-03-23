@@ -31,7 +31,7 @@
 .comment-form {
     display: flex;
     align-items: flex-end;
-    margin: 1rem 2rem 1rem;
+    margin: 1rem 2rem 1rem 5rem;
 }
 
 .comment-btn {
@@ -43,4 +43,18 @@
 
 .comment-input {
     min-width: 20rem;
+}
+
+.post-image {
+    max-width: 50rem;
+    max-height: 60rem;
+    margin-bottom: 0.5rem;
+}
+
+.comment-section {
+    margin: 2.5rem 0 2.5rem 2.5rem;
+}
+
+.comment-username {
+    font-weight: bold;
 }

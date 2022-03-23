@@ -8,9 +8,9 @@ const validateEmail = (email) => {
 
 export const signupValidators = (username, email, password, repeatPassword, setErrors) => {
     const errors = [];
-    if (username.length < 2) errors.push("username: Must be longer than 1 character");
-    if (username.length > 40) errors.push("username: Must be no longer than 40 characters");
-    if (!validateEmail(email)) errors.push("email: Invalid email address");
-    if (password !== repeatPassword) errors.push("password: Passwords don't match");
+    if (username.length < 2) errors.push("Username must be at least 2 characters.");
+    if (username.length > 40) errors.push("Username must be no longer than 40 characters.");
+    if (!validateEmail(email)) errors.push("Invalid email address.");
+    if (password !== repeatPassword) errors.push("Passwords don't match.");
     setErrors(errors);
 };

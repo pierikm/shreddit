@@ -15,7 +15,7 @@ function NewPostForm() {
     const [showErrors, setShowErrors] = useState(false);
 
     // eslint-disable-next-line
-    const reg = new RegExp('(http(s?):)|([/|.|\w|\s])*\.(?:jpg|jpeg|gif|png)');
+    const reg = /(https?:\/\/.*\.(?:png|jpg|jpeg|gif))/i;
 
     const dispatch = useDispatch();
     const history = useHistory();

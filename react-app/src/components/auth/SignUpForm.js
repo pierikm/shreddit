@@ -62,7 +62,7 @@ const SignUpForm = () => {
               ))}
             </div>
           }
-          <label className='username-label'>User Name</label>
+          <label className='username-label'>Username</label>
           <input
             className='username-input'
             type='text'

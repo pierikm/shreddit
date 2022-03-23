@@ -7,6 +7,7 @@ import SideBar from "../SideBar";
 function Posts() {
     const [isLoaded, setIsLoaded] = useState(false);
     const [sortBy, setSortBy] = useState("top");
+    const [sortedPosts, setSortedPosts] = useState([])
     const dispatch = useDispatch();
     const posts = useSelector(state => {
         const arr = Object.values(state.posts)
@@ -18,10 +19,14 @@ function Posts() {
     const user = useSelector(state => state.session.user);
 
     useEffect(() => {
+        setSortedPosts(posts);
         setIsLoaded(true);
     }, [dispatch]);
 
     const changeSort = async (sort) => {
+        // if (sort === 'top') setSortedPosts(posts.sort((a, b) => b.score - a.score));
+        // else if (sort === 'new') setSortedPosts(posts.sort((a, b) => b.id - a.id));
+        // else if (sort === 'old') setSortedPosts(posts.sort((a, b) => a.id - b.id));
         setSortBy(sort);
         // await dispatch(loadPosts());
     }
@@ -51,7 +56,7 @@ function Posts() {
             <div className="posts-page">
                 <ul className="post-preview-list">
                     {
-                        isLoaded &&
+                        isLoaded && sortedPosts &&
                         posts.map(post => (
                             <li key={post.id}>
                                 <PostPreview userId={user.id} post={post} />

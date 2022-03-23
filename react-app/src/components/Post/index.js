@@ -95,27 +95,31 @@ function Post() {
                             }
                             {
                                 post?.image_url &&
-                                <img src={post?.image_url} alt={post?.title} />
+                                <a href={post?.image_url}>
+                                    <img className="post-image" src={post?.image_url} alt={post?.title} />
+                                </a>
                             }
-                            {user?.id === post?.user_id &&
-                                <span className="preview-user-btns">
-                                    <button
-                                        id="post-edit-btn"
-                                        className="button"
-                                        onClick={() => !showModal && setShowModal(true)}>
-                                        Edit
-                                    </button>
-                                    <button
-                                        className="button"
-                                        onClick={() => setShowDelete(true)}>
-                                        Delete
-                                    </button>
-                                </span>
-                            }
+                            <span className="preview-user-btns">
+                                {user?.id === post?.user_id &&
+                                    <>
+                                        <button
+                                            id="post-edit-btn"
+                                            className="button"
+                                            onClick={() => !showModal && setShowModal(true)}>
+                                            Edit
+                                        </button>
+                                        <button
+                                            className="button"
+                                            onClick={() => setShowDelete(true)}>
+                                            Delete
+                                        </button>
+                                    </>
+                                }
+                            </span>
                         </div>
                     </div>
                     <CommentForm postId={postId} />
-                    <ul>
+                    <ul className="comment-section">
                         {
                             Object.values(comments).map(comment => (
                                 <Comment key={comment.id} post_id={postId} comment={comment} />
