@@ -1,134 +1,61 @@
-# Flask React Project
+# Shreddit
 
-This is the starter for the Flask React project.
+[Shreddit](https://shreddit-aa.herokuapp.com) is based on the forum website [Reddit](https://reddit.com), with a snowboard/ski twist. Users can share their shredding experiences by creating posts that can have text or an image. Users can also vote and comment on posts. Votes either raise or lower the post's score, showing how good the post is, while comments are self-explanatory.
 
-## Getting started
+## Features
 
-1. Clone this repository (only this branch)
+* Create an account, sign in, or demo the site via a Demo user log in.
+* Create, Read, Update, and Delete
+  * Posts
+  * Comments
+* Create, Read, and Delete
+  * Votes
 
-   ```bash
-   git clone https://github.com/appacademy-starters/python-project-starter.git
-   ```
+Upcoming features:
+* Commenting on comments
+* Voting on comments
+* Sorting comments
 
-2. Install dependencies
+## Technologies Used
 
-      ```bash
-      pipenv install --dev -r dev-requirements.txt && pipenv install -r requirements.txt
-      ```
+* React
+* Redux
+* Flask SQLAlchemy
+* PostgreSQL
 
-3. Create a **.env** file based on the example with proper settings for your
-   development environment
-4. Setup your PostgreSQL user, password and database and make sure it matches your **.env** file
+# Splash Page
 
-5. Get into your pipenv, migrate your database, seed your database, and run your flask app
+From the splash page, if you are logged in, you can click the "Start Shredding" button to navigate to the Posts page and start browsing all the posts on the site. If you are not logged in the "Start Shredding" button will navigate you to the Login page where you can login. Alternatively you can navigate to the Sign Up or Login pages by their respective buttons in the navbar in the top right.
+![image](https://user-images.githubusercontent.com/92738445/159810062-15336641-6369-4b4b-90de-277f94f33980.png)
 
-   ```bash
-   pipenv shell
-   ```
+# Posts
 
-   ```bash
-   flask db upgrade
-   ```
+On the Posts page you can see all the posts on the site. You can use the "Top", "New", and "Old" buttons to sort the posts. You can vote on any post by clicking the small Snowboard to the left of the post preview to increase its score by 1, or clicking the skis to decrease its score by 1. If you created the post, you can also edit or delete the post using the buttons under that post's title. Clicking the title of a post will navigate you to that post's page. You can also navigate to the form to create your own post using the "Create a Post" button on the right.
+![image](https://user-images.githubusercontent.com/92738445/159810557-f46213e6-b511-4cd0-bd5c-f6b25d83107e.png)
 
-   ```bash
-   flask seed all
-   ```
+# Post
 
-   ```bash
-   flask run
-   ```
+On the individual post page you can see the full body of the post's text, or a larger version of the post's image. Clicking on the image will open a new tab to the image's external link. On this page you can also edit or delete the post, if you created it. The "Create a Post" button functions the same on this page. The comment form is permanently shown, where you can type a comment and submit it with the "Submit Comment" button. If you have any comments on this post's page you can edit or delete the comment with buttons in the comment's container.
+![image](https://user-images.githubusercontent.com/92738445/159811277-a78c15da-40df-42fc-932f-1b45827f5711.png)
 
-6. To run the React App in development, checkout the [README](./react-app/README.md) inside the `react-app` directory.
+edit post
+![image](https://user-images.githubusercontent.com/92738445/159811764-f5953eb0-424d-4ab7-ad8b-565a4bf71514.png)
 
-***
-*IMPORTANT!*
-   If you add any python dependencies to your pipfiles, you'll need to regenerate your requirements.txt before deployment.
-   You can do this by running:
+delete post
+![image](https://user-images.githubusercontent.com/92738445/159811815-58b54bfd-247a-478b-b08c-a08af165492b.png)
 
-   ```bash
-   pipenv lock -r > requirements.txt
-   ```
+edit comment
+![image](https://user-images.githubusercontent.com/92738445/159811678-c9dcecbf-5b14-4f4e-aa41-ab77c72feecd.png)
 
-*ALSO IMPORTANT!*
-   psycopg2-binary MUST remain a dev dependency because you can't install it on apline-linux.
-   There is a layer in the Dockerfile that will install psycopg2 (not binary) for us.
-***
+# Create Post
 
-## Deploy to Heroku
+You can either create a text post or an image post. Images must be hosted externally and can have .jpg, .jpeg, .png, or .gif extensions.
 
-1. Before you deploy, don't forget to run the following command in order to
-ensure that your production environment has all of your up-to-date
-dependencies. You only have to run this command when you have installed new
-Python packages since your last deployment, but if you aren't sure, it won't
-hurt to run it again.
+create text post
+![image](https://user-images.githubusercontent.com/92738445/159811916-7310f306-d1d1-4d8b-afe7-fff353aa84f9.png)
 
-   ```bash
-   pipenv lock -r > requirements.txt
-   ```
+create image post
+![image](https://user-images.githubusercontent.com/92738445/159811978-36e0d16f-392f-4c35-ba10-18523a184a96.png)
 
-2. Create a new project on Heroku
-3. Under Resources click "Find more add-ons" and add the add on called "Heroku Postgres"
-4. Install the [Heroku CLI](https://devcenter.heroku.com/articles/heroku-command-line)
-5. Run
 
-   ```bash
-   heroku login
-   ```
 
-6. Login to the heroku container registry
-
-   ```bash
-   heroku container:login
-   ```
-
-7. Update the `REACT_APP_BASE_URL` variable in the Dockerfile.
-   This should be the full URL of your Heroku app: i.e. "https://flask-react-aa.herokuapp.com"
-8. Push your docker container to heroku from the root directory of your project.
-   (If you are using an M1 mac, follow [these steps below](#for-m1-mac-users) instead, then continue on to step 9.)
-   This will build the Dockerfile and push the image to your heroku container registry.
-
-   ```bash
-   heroku container:push web -a {NAME_OF_HEROKU_APP}
-   ```
-
-9. Release your docker container to heroku
-
-      ```bash
-      heroku container:release web -a {NAME_OF_HEROKU_APP}
-      ```
-
-10. set up your database
-
-      ```bash
-      heroku run -a {NAME_OF_HEROKU_APP} flask db upgrade
-      heroku run -a {NAME_OF_HEROKU_APP} flask seed all
-      ```
-
-11. Under Settings find "Config Vars" and add any additional/secret .env
-variables.
-
-12. profit
-
-### For M1 Mac users
-
-(Replaces **Step 8**)
-
-1. Build image with linux platform for heroku servers. Replace
-{NAME_OF_HEROKU_APP} with your own tag:
-
-   ```bash=
-   docker buildx build --platform linux/amd64 -t {NAME_OF_HEROKU_APP} .
-   ```
-
-2. Tag your app with the url for your apps registry. Make sure to use the name
-of your Heroku app in the url and tag name:
-
-   ```bash=2
-   docker tag {NAME_OF_HEROKU_APP} registry.heroku.com/{NAME_OF_HEROKU_APP}/web
-   ```
-
-3. Use docker to push the image to the Heroku container registry:
-
-   ```bash=3
-   docker push registry.heroku.com/{NAME_OF_HEROKU_APP}/web
-   ```
