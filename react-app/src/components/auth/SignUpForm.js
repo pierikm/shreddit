@@ -95,7 +95,11 @@ const SignUpForm = () => {
             value={repeatPassword}
             required={true}
           ></input>
-          <button className='button signup-btn' type='submit'>Sign Up</button>
+          <button
+            className='button signup-btn'
+            type='submit'>
+            Sign Up
+          </button>
         </form>
         <div className='login-link'>
           <span>Already a user? </span>

@@ -118,6 +118,7 @@ function Post() {
                             </span>
                         </div>
                     </div>
+                    <h2 className="comments-title">Comments</h2>
                     <CommentForm postId={postId} />
                     <ul className="comment-section">
                         {

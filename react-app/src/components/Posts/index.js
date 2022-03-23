@@ -6,7 +6,7 @@ import SideBar from "../SideBar";
 
 function Posts() {
     const [isLoaded, setIsLoaded] = useState(false);
-    const [sortBy, setSortBy] = useState("top");
+    const [sortBy, setSortBy] = useState("new");
     const [sortedPosts, setSortedPosts] = useState([])
     const dispatch = useDispatch();
     const posts = useSelector(state => {
