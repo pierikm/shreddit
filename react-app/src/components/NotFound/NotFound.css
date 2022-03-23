@@ -1,0 +1,25 @@
+.not-found-container {
+    min-width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 5rem 0 0;
+}
+
+.not-found-btn {
+    padding: 0.5rem;
+    font-size: 1.5rem;
+    margin: 1rem;
+    white-space: nowrap;
+}
+
+.not-found-btn:hover {
+    background-color: var(--button-bg-hover);
+    color: var(--button-hover);
+    /* box-shadow: 0 0 2rem var(--button-bg-hover); */
+}
+
+.not-found-img {
+    max-width: 50rem;
+    max-height: 50rem;
+}
