@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { createComment, editComment, deleteComment } from "../../store/comments";
 import { postLoadComments } from '../../store/comments';
+import { countToStr } from './utils';
 
 function Comment({ comment, post_id, comments, parentId = null, count }) {
     const [editing, setEditing] = useState(false);
@@ -12,7 +13,7 @@ function Comment({ comment, post_id, comments, parentId = null, count }) {
     const user = useSelector(state => state.session.user);
 
     const commentsArr = Object.values(comments);
-    console.log(commentsArr);
+    const countStr = countToStr(count);
 
     const dispatch = useDispatch();
 
@@ -44,7 +45,8 @@ function Comment({ comment, post_id, comments, parentId = null, count }) {
             content: reply
         }
         if (!errors.length) {
-            setReplying(false)
+            setReplying(false);
+            setReply('');
             await dispatch(createComment(payload));
             await dispatch(postLoadComments(post_id));
         }
@@ -104,70 +106,77 @@ function Comment({ comment, post_id, comments, parentId = null, count }) {
         )
     }
     return (
-        <div className="comment-container">
-            <div>
-                <span className="comment-username">
-                    {comment.user.username}
-                </span>
-            </div>
-            <p>{comment.content}</p>
-            <span className="comment-edit-btns">
-                <button
-                    className="button edit-comment-btn"
-                    onClick={() => setReplying(true)}>
-                    Reply
-                </button>
-                {user.id === comment.user.id &&
-                    <>
-                        <button className="button edit-comment-btn" onClick={() => setEditing(true)}>Edit</button>
-                        <button className="button edit-comment-btn" onClick={() => handleDelete()}>Delete</button>
-                    </>
-                }
-            </ span>
-            {
-                replying &&
-                <form onSubmit={(e) => handleReply(e)}>
-                    <textarea
-                        className="comment-reply-input"
-                        rows="5"
-                        value={reply}
-                        onChange={(e) => setReply(e.target.value)}
-                    />
-                    <span className="comment-reply-btns">
-                        <button
-                            type="submit"
-                            className="button reply-comment-btn">
-                            Submit
-                        </button>
-                        <button
-                            className="button reply-comment-btn"
-                            onClick={(e) => {
-                                e.preventDefault();
-                                // setReply('');
-                                setReplying(false);
-                            }}>
-                            Cancel
-                        </button>
+        <>
+            <div className={`comment-container`}>
+                <div>
+                    <span className="comment-username">
+                        {comment.user.username}
                     </span>
-                </form>
-            }
-            {
-                count < 5 &&
-                <ul className="comment-section">
-                    {
-                        Object.values(comments)
-                            .filter(reply => reply.parent_id === comment.id)
-                            .map(reply => (
-                                <Comment key={reply.id}
-                                    post_id={post_id}
-                                    comment={reply}
-                                    comments={comments}
-                                    count={count + 1} />
-                            ))
+                </div>
+                <p className='comment-content'>{comment.content}</p>
+                <span className="comment-edit-btns">
+                    {count < 5 &&
+                        <button
+                            className="button edit-comment-btn"
+                            onClick={() => setReplying(!replying)}>
+                            Reply
+                        </button>
                     }
-                </ul>
-            }
-        </ div>
+                    {user.id === comment.user.id &&
+                        <>
+                            <button className="button edit-comment-btn" onClick={() => setEditing(true)}>Edit</button>
+                            <button className="button edit-comment-btn" onClick={() => handleDelete()}>Delete</button>
+                        </>
+                    }
+                </ span>
+                {
+                    replying &&
+                    <form className="comment-reply-form" onSubmit={(e) => handleReply(e)}>
+                        <textarea
+                            className="comment-reply-input"
+                            rows="5"
+                            value={reply}
+                            onChange={(e) => setReply(e.target.value)}
+                        />
+                        <span className="comment-reply-btns">
+                            <button
+                                type="submit"
+                                className="button reply-comment-btn">
+                                Submit
+                            </button>
+                            <button
+                                className="button reply-comment-btn"
+                                onClick={(e) => {
+                                    e.preventDefault();
+                                    // setReply('');
+                                    setReplying(false);
+                                }}>
+                                Cancel
+                            </button>
+                        </span>
+                    </form>
+                }
+
+                {
+                    count < 5 &&
+                    <div className="reply-container">
+                        <ul className={`comment-section ${countStr}`}>
+                            {
+                                Object.values(comments)
+                                    .filter(reply => reply.parent_id === comment.id)
+                                    .map(reply => (
+                                        <Comment key={reply.id}
+                                            post_id={post_id}
+                                            comment={reply}
+                                            comments={comments}
+                                            count={count + 1} />
+                                    ))
+                            }
+                        </ul>
+                    </div>
+                }
+            </ div>
+        </>
     )
 }
 

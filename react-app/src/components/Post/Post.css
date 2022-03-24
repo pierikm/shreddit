@@ -20,6 +20,7 @@
     display:flex;
     justify-content: space-between;
     min-width: 100%;
+    max-width: 100%;
     padding: 2rem;
     padding-right: 0;
 }
@@ -78,7 +79,10 @@
 .comment-container {
     padding-top: 1rem;
     padding-bottom: 1rem;
-    border-bottom: 1px solid var(--font-light-blue);
+    padding-left: 1rem;
+    max-width: 100%;
+    /* margin: 0.5rem; */
+    border: 1px solid var(--font-light-blue);
 }
 
 .comment-edit-input {
@@ -88,4 +92,23 @@
 
 .comment-errors {
     margin-left: 5rem;
+}
+
+.comment-reply-form {
+    margin-top: 0.5rem;
+}
+
+.comment-reply-btns {
+    display: flex;
+    margin: 0.5rem 0 0;
+}
+
+.reply-comment-btn {
+    margin-right: 1rem;
+    border-radius: 4px;
+}
+
+.comment-content {
+    max-width: 60rem;
+    word-wrap: break-word;
 }
