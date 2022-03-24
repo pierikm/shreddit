@@ -27,7 +27,7 @@ function CommentForm({ postId }) {
 
     const commentValidator = () => {
         const errors = [];
-        if (content.length < 1) errors.push("Comment must have at least 1 character.");
+        if (content.length < 1) errors.push("Comment cannot be empty.");
         if (content.length > 2000) errors.push("Comment can be no more than 2000 characters.")
         setErrors(errors);
     }
@@ -38,16 +38,6 @@ function CommentForm({ postId }) {
 
     return (
         <>
-            <form className="comment-form" onSubmit={(e) => handleSubmit(e)}>
-                {/* <label className="add-comment-label">Add a comment</label> */}
-                <textarea
-                    className="comment-input input"
-                    rows="5"
-                    value={content}
-                    onChange={(e) => setContent(e.target.value)}
-                />
-                <button className="comment-btn button">Submit Comment</button>
-            </form>
             {
                 showErrors &&
                 <div className="comment-errors">
@@ -58,6 +48,16 @@ function CommentForm({ postId }) {
                     }
                 </div>
             }
+            <form className="comment-form" onSubmit={(e) => handleSubmit(e)}>
+                {/* <label className="add-comment-label">Add a comment</label> */}
+                <textarea
+                    className="comment-input input"
+                    rows="5"
+                    value={content}
+                    onChange={(e) => setContent(e.target.value)}
+                />
+                <button className="comment-btn button">Submit Comment</button>
+            </form>
         </>
     )
 }

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { editComment, deleteComment } from "../../store/comments";
 import { postLoadComments } from '../../store/comments';
@@ -6,20 +6,34 @@ import { postLoadComments } from '../../store/comments';
 function Comment({ comment, post_id }) {
     const [editing, setEditing] = useState(false);
     const [content, setContent] = useState(comment.content);
+    const [errors, setErrors] = useState([]);
     const user = useSelector(state => state.session.user);
 
     const dispatch = useDispatch();
 
+    const commentValidator = () => {
+        const errors = [];
+        if (content.length < 1) errors.push("Comment cannot be empty.");
+        if (content.length > 2000) errors.push("Comment can be no more than 2000 characters.")
+        setErrors(errors);
+    }
+
     const handleSubmit = async (e) => {
         e.preventDefault();
-        setEditing(false)
         const payload = {
             post_id,
             content
         }
-        await dispatch(editComment(payload, comment.id));
-        await dispatch(postLoadComments(post_id));
+        if (!errors.length) {
+            setEditing(false)
+            await dispatch(editComment(payload, comment.id));
+            await dispatch(postLoadComments(post_id));
+        }
     };
+
+    useEffect(() => {
+        commentValidator();
+    }, [content])
 
     const handleDelete = async () => {
         await dispatch(deleteComment(comment.id));
@@ -33,6 +47,15 @@ function Comment({ comment, post_id }) {
                     <span className="comment-username">
                         {comment.user.username}
                     </span>
+                </div>
+                <div>
+                    {errors.map(error => (
+                        <div
+                            id="error"
+                            key={error}>
+                            {error}
+                        </div>
+                    ))}
                 </div>
                 <form className="comment-edit-form" onSubmit={(e) => handleSubmit(e)}>
                     <textarea
@@ -51,6 +74,7 @@ function Comment({ comment, post_id }) {
                             className="button edit-comment-btn"
                             onClick={(e) => {
                                 e.preventDefault();
+                                setContent(comment.content);
                                 setEditing(false);
                             }}>
                             Cancel
