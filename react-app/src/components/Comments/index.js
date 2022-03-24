@@ -1,13 +1,18 @@
 import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { editComment, deleteComment } from "../../store/comments";
+import { createComment, editComment, deleteComment } from "../../store/comments";
 import { postLoadComments } from '../../store/comments';
 
-function Comment({ comment, post_id }) {
+function Comment({ comment, post_id, comments, parentId = null, count }) {
     const [editing, setEditing] = useState(false);
+    const [replying, setReplying] = useState(false);
+    const [reply, setReply] = useState('');
     const [content, setContent] = useState(comment.content);
     const [errors, setErrors] = useState([]);
     const user = useSelector(state => state.session.user);
+
+    const commentsArr = Object.values(comments);
+    console.log(commentsArr);
 
     const dispatch = useDispatch();
 
@@ -27,6 +32,20 @@ function Comment({ comment, post_id }) {
         if (!errors.length) {
             setEditing(false)
             await dispatch(editComment(payload, comment.id));
+            await dispatch(postLoadComments(post_id));
+        }
+    };
+
+    const handleReply = async (e) => {
+        e.preventDefault();
+        const payload = {
+            post_id,
+            parent_id: comment.id,
+            content: reply
+        }
+        if (!errors.length) {
+            setReplying(false)
+            await dispatch(createComment(payload));
             await dispatch(postLoadComments(post_id));
         }
     };
@@ -92,11 +111,61 @@ function Comment({ comment, post_id }) {
                 </span>
             </div>
             <p>{comment.content}</p>
-            {user.id === comment.user.id &&
-                <span className="comment-edit-btns">
-                    <button className="button edit-comment-btn" onClick={() => setEditing(true)}>Edit</button>
-                    <button className="button edit-comment-btn" onClick={() => handleDelete()}>Delete</button>
-                </ span>
+            <span className="comment-edit-btns">
+                <button
+                    className="button edit-comment-btn"
+                    onClick={() => setReplying(true)}>
+                    Reply
+                </button>
+                {user.id === comment.user.id &&
+                    <>
+                        <button className="button edit-comment-btn" onClick={() => setEditing(true)}>Edit</button>
+                        <button className="button edit-comment-btn" onClick={() => handleDelete()}>Delete</button>
+                    </>
+                }
+            </ span>
+            {
+                replying &&
+                <form onSubmit={(e) => handleReply(e)}>
+                    <textarea
+                        className="comment-reply-input"
+                        rows="5"
+                        value={reply}
+                        onChange={(e) => setReply(e.target.value)}
+                    />
+                    <span className="comment-reply-btns">
+                        <button
+                            type="submit"
+                            className="button reply-comment-btn">
+                            Submit
+                        </button>
+                        <button
+                            className="button reply-comment-btn"
+                            onClick={(e) => {
+                                e.preventDefault();
+                                // setReply('');
+                                setReplying(false);
+                            }}>
+                            Cancel
+                        </button>
+                    </span>
+                </form>
+            }
+            {
+                count < 5 &&
+                <ul className="comment-section">
+                    {
+                        Object.values(comments)
+                            .filter(reply => reply.parent_id === comment.id)
+                            .map(reply => (
+                                <Comment key={reply.id}
+                                    post_id={post_id}
+                                    comment={reply}
+                                    comments={comments}
+                                    count={count + 1} />
+                            ))
+                    }
+                </ul>
             }
         </ div>
     )
