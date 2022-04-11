@@ -6,10 +6,10 @@ class CommentVote(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey("users.id"), nullable=False)
-    post_id = db.Column(db.Integer, db.ForeignKey("posts.id"), nullable=False)
+    comment_id = db.Column(db.Integer, db.ForeignKey("comments.id"), nullable=False)
     vote = db.Column(db.Boolean, nullable=False)
 
-    user = db.relationship("User", back_populates="votes")
+    user = db.relationship("User", back_populates="comment_votes")
     comment = db.relationship("Comment", back_populates="votes")
 
     def to_dict(self):
