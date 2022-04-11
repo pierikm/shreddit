@@ -122,9 +122,15 @@ function Post() {
                     <CommentForm postId={postId} />
                     <ul className="comment-section">
                         {
-                            Object.values(comments).map(comment => (
-                                <Comment key={comment.id} post_id={postId} comment={comment} />
-                            ))
+                            Object.values(comments)
+                                .filter(comment => comment.parent_id === null)
+                                .map(comment => (
+                                    <Comment key={comment.id}
+                                        post_id={postId}
+                                        comment={comment}
+                                        comments={comments}
+                                        count={1} />
+                                ))
                         }
                     </ul>
                 </div>

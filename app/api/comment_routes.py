@@ -16,7 +16,7 @@ def create_comment():
         comment = Comment(
             user_id=int(current_user.id),
             post_id=int(form.data["post_id"]),
-            # parent_id=form.data["parent_id"],
+            parent_id=form.data["parent_id"],
             content=form.data["content"]
         )
         db.session.add(comment)

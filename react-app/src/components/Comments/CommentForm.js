@@ -13,6 +13,7 @@ function CommentForm({ postId }) {
         e.preventDefault();
         const payload = {
             post_id: postId,
+            parent_id: null,
             content
         }
         setShowErrors(true)
