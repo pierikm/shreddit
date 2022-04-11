@@ -6,7 +6,8 @@ import { loadPosts } from "../../store/posts";
 
 function Posts() {
     const [isLoaded, setIsLoaded] = useState(false);
-    const [sortBy, setSortBy] = useState("new");
+    const [sortBy, setSortBy] = useState(window.sessionStorage.getItem("sortBy") ?
+        window.sessionStorage.getItem("sortBy") : "new");
     const [sortedPosts, setSortedPosts] = useState([])
     const dispatch = useDispatch();
     const posts = useSelector(state => {
@@ -27,12 +28,15 @@ function Posts() {
     const changeSort = async (sort) => {
         const postsArr = Object.values(posts);
         if (sort === 'top') {
+            window.sessionStorage.setItem("sortBy", "top");
             setSortedPosts(postsArr.sort((a, b) => b.score - a.score));
         }
         else if (sort === 'new') {
+            window.sessionStorage.setItem("sortBy", "new");
             setSortedPosts(postsArr.sort((a, b) => b.id - a.id));
         }
         else if (sort === 'old') {
+            window.sessionStorage.setItem("sortBy", "old");
             setSortedPosts(postsArr.sort((a, b) => a.id - b.id));
         }
         setSortBy(sort);
@@ -63,12 +67,10 @@ function Posts() {
             </div>
             <div className="posts-page">
                 <ul className="post-preview-list">
-                    {console.log(posts)}
                     {
                         isLoaded && sortedPosts &&
                         sortedPosts.map(post => (
                             <li key={post.id}>
-                                {console.log("sorted posts post: ", post)}
                                 <PostPreview userId={user.id} post={posts[post.id]} />
                             </li>
                         ))
