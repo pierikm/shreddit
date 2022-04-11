@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import PostPreview from "./PostsPreview";
 import SideBar from "../SideBar";
-// import { loadPosts } from "../../store/posts";
+import { loadPosts } from "../../store/posts";
 
 function Posts() {
     const [isLoaded, setIsLoaded] = useState(false);
@@ -10,23 +10,31 @@ function Posts() {
     const [sortedPosts, setSortedPosts] = useState([])
     const dispatch = useDispatch();
     const posts = useSelector(state => {
-        const arr = Object.values(state.posts)
-        if (sortBy === 'top') arr.sort((a, b) => b.score - a.score);
-        else if (sortBy === 'new') arr.sort((a, b) => b.id - a.id);
-        else if (sortBy === 'old') arr.sort((a, b) => a.id - b.id);
-        return arr;
+        // const arr = Object.values(state.posts)
+        // if (sortBy === 'top') arr.sort((a, b) => b.score - a.score);
+        // else if (sortBy === 'new') arr.sort((a, b) => b.id - a.id);
+        // else if (sortBy === 'old') arr.sort((a, b) => a.id - b.id);
+        return state.posts;
     });
     const user = useSelector(state => state.session.user);
 
     useEffect(() => {
-        setSortedPosts(posts);
+        changeSort(sortBy);
+        // setSortedPosts(posts);
         setIsLoaded(true);
-    }, [dispatch]);
+    }, []);
 
     const changeSort = async (sort) => {
-        // if (sort === 'top') setSortedPosts(posts.sort((a, b) => b.score - a.score));
-        // else if (sort === 'new') setSortedPosts(posts.sort((a, b) => b.id - a.id));
-        // else if (sort === 'old') setSortedPosts(posts.sort((a, b) => a.id - b.id));
+        const postsArr = Object.values(posts);
+        if (sort === 'top') {
+            setSortedPosts(postsArr.sort((a, b) => b.score - a.score));
+        }
+        else if (sort === 'new') {
+            setSortedPosts(postsArr.sort((a, b) => b.id - a.id));
+        }
+        else if (sort === 'old') {
+            setSortedPosts(postsArr.sort((a, b) => a.id - b.id));
+        }
         setSortBy(sort);
         // await dispatch(loadPosts());
     }
@@ -55,11 +63,13 @@ function Posts() {
             </div>
             <div className="posts-page">
                 <ul className="post-preview-list">
+                    {console.log(posts)}
                     {
                         isLoaded && sortedPosts &&
-                        posts.map(post => (
+                        sortedPosts.map(post => (
                             <li key={post.id}>
-                                <PostPreview userId={user.id} post={post} />
+                                {console.log("sorted posts post: ", post)}
+                                <PostPreview userId={user.id} post={posts[post.id]} />
                             </li>
                         ))
                     }

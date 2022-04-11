@@ -11,6 +11,7 @@ function PostPreview({ post, userId }) {
     const [showModal, setShowModal] = useState(false);
     const [showDelete, setShowDelete] = useState(false);
     const dispatch = useDispatch();
+    // console.log(post);
     const votes = useSelector(state => state.votes[post.id]);
 
     const handleDelete = async () => {
