@@ -63,7 +63,7 @@ function Comment({ comment, post_id, comments, parentId = null, count }) {
 
     if (editing) {
         return (
-            <div className="comment-container">
+            <div className="comment-container" id={parentId ? 'comment-reply' : ''}>
                 <div>
                     <span className="comment-username">
                         {comment.user.username}

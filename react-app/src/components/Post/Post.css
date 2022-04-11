@@ -17,7 +17,7 @@
 }
 
 .post-page {
-    display:flex;
+    display: flex;
     justify-content: space-between;
     min-width: 100%;
     max-width: 100%;
@@ -53,7 +53,24 @@
 }
 
 .comment-section {
-    margin: 1rem 0 2.5rem 2.5rem;
+    margin: 1rem 0 1rem 5rem;
+    padding-left: 0;
+}
+
+.comment-section.one,
+.comment-section.odd,
+.comment-section.even {
+    margin-left: 0.5rem;
+}
+
+.comment-section.odd,
+.comment-section.one {
+    background-color: var(--bg-base);
+}
+
+.comment-section,
+.comment-section.even {
+    background-color: #191b1d;
 }
 
 .comment-username {
@@ -77,12 +94,10 @@
 }
 
 .comment-container {
-    padding-top: 1rem;
-    padding-bottom: 1rem;
-    padding-left: 1rem;
+    padding: 1rem;
     max-width: 100%;
-    /* margin: 0.5rem; */
-    border: 1px solid var(--font-light-blue);
+    border: 1px solid #475864;
+    /* border-bottom: 0px; */
 }
 
 .comment-edit-input {
