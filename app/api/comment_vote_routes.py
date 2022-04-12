@@ -34,6 +34,7 @@ def edit_vote(id):
 @login_required
 def delete_vote(id):
     vote = CommentVote.query.get(id)
+    comment = Comment.query.get(vote.comment_id)
     db.session.delete(vote)
     db.session.commit()
-    return f'{vote.comment_id}'
+    return comment.to_dict()
