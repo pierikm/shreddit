@@ -5,7 +5,9 @@ import {
     editComment,
     deleteComment,
     postLoadComments,
-    createVote
+    createVote,
+    editVote,
+    deleteVote
 } from "../../store/comments";
 import { countToStr } from './utils';
 
@@ -58,18 +60,18 @@ function Comment({ comment, post_id, comments, parentId = null, count }) {
     };
 
     const handleVote = async (strVote) => {
+        const currVote = comment.votes[user.id] ? `${comment.votes[user.id].vote}` : null;
+        const voteId = comment.votes[user.id] ? comment.votes[user.id].id : null;
         const payload = {
             vote: strVote
         };
-        if (comment?.votes[user.id] === undefined) {
+        console.log(currVote);
+        if (!currVote) {
             await dispatch(createVote(payload, comment.id));
         }
-        else if (comment?.votes[user.id].vote) {
-            // await dispatch(deleteVote(votes[userId].id))
-            if (strVote === 'false') {
-                console.log("create downvote");
-                // await dispatch(createVote(payload, post.id));
-            }
+        else if (currVote){
+            if(currVote !== strVote) await dispatch(editVote(payload, voteId));
+            else await dispatch(deleteVote(voteId));
         }
         else if (!comment?.votes[user.id].vote) {
             // await dispatch(deleteVote(votes[userId].id))

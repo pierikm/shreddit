@@ -84,6 +84,7 @@ export const createVote = (payload, commentId) => async dispatch => {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload)
     });
+    console.log("***************", "createVote");
     if (response.ok) {
         const comment = await response.json();
         await dispatch(edit(comment));
@@ -97,6 +98,7 @@ export const editVote = (payload, id) => async dispatch => {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload)
     });
+    console.log("***************", "editVote");
     if (response.ok) {
         const comment = await response.json();
         await dispatch(edit(comment));

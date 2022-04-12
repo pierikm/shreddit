@@ -17,12 +17,18 @@ def edit_vote(id):
     form = CommentVoteForm()
     form['csrf_token'].data = request.cookies['csrf_token']
     vote = CommentVote.query.get(id)
+    print("***************", vote.user_id, current_user.id)
 
-    if CommentVote.user_id == current_user.id:
-        setattr(vote, 'vote', form.data['vote'])
-        db.session.commit()
-        comment = Comment.query.get(vote.comment_id)
-        return comment.to_dict()
+    if vote.user_id == current_user.id and form.validate_on_submit():
+        if form.data['vote'] == 'true':
+            setattr(vote, 'vote', True)
+            db.session.commit()
+        else:
+            setattr(vote, 'vote', False)
+            db.session.commit()
+    comment = Comment.query.get(vote.comment_id)
+    # print("**************", comment.to_dict())
+    return comment.to_dict()
 
 @comment_vote_routes.route('/<int:id>', methods=["DELETE"])
 @login_required
