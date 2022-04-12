@@ -1,7 +1,12 @@
 import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { createComment, editComment, deleteComment } from "../../store/comments";
-import { postLoadComments } from '../../store/comments';
+import {
+    createComment,
+    editComment,
+    deleteComment,
+    postLoadComments,
+    createVote
+} from "../../store/comments";
 import { countToStr } from './utils';
 
 function Comment({ comment, post_id, comments, parentId = null, count }) {
@@ -50,6 +55,30 @@ function Comment({ comment, post_id, comments, parentId = null, count }) {
             await dispatch(createComment(payload));
             await dispatch(postLoadComments(post_id));
         }
+    };
+
+    const handleVote = async (strVote) => {
+        const payload = {
+            vote: strVote
+        };
+        if (comment?.votes[user.id] === undefined) {
+            await dispatch(createVote(payload, comment.id));
+        }
+        else if (comment?.votes[user.id].vote) {
+            // await dispatch(deleteVote(votes[userId].id))
+            if (strVote === 'false') {
+                console.log("create downvote");
+                // await dispatch(createVote(payload, post.id));
+            }
+        }
+        else if (!comment?.votes[user.id].vote) {
+            // await dispatch(deleteVote(votes[userId].id))
+            if (strVote === 'true') {
+                // await dispatch(createVote(payload, post.id));
+            }
+        }
+        // await dispatch(loadSinglePost(post.id));
+        // await dispatch(loadVotes());
     };
 
     useEffect(() => {
@@ -107,7 +136,23 @@ function Comment({ comment, post_id, comments, parentId = null, count }) {
     }
     return (
         <>
+
             <div className={`comment-container`}>
+                <div className="score-container">
+                    <img
+                        alt="upvote"
+                        className={'vote-icon upvote-icon' + `${comment.votes && comment.votes[user.id]?.vote === true ? ' selected' : ''}`}
+                        src="/static/snowboard_icon.png"
+                        onClick={() => handleVote('true')} />
+                    <div>
+                        {comment.score}
+                    </div>
+                    <img
+                        alt="downvote"
+                        className={'vote-icon downvote-icon' + `${comment.votes && comment.votes[user.id]?.vote === false ? ' selected' : ''}`}
+                        src="/static/ski_icon.png"
+                        onClick={() => handleVote('false')} />
+                </div>
                 <div>
                     <span className="comment-username">
                         {comment.user.username}

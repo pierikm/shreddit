@@ -4,6 +4,8 @@ from flask_login import current_user, login_required
 from sqlalchemy import null
 from app.models import db, Comment
 from app.forms.comment_form import CommentForm
+from app.forms.comment_vote_form import CommentVoteForm
+from app.models.comment_vote import CommentVote
 
 comment_routes = Blueprint('comments', __name__)
 
@@ -43,3 +45,29 @@ def delete_comment(id):
         db.session.delete(comment)
         db.session.commit()
         return f'{comment.id}'
+
+@comment_routes.route('/<int:id>/votes', methods=["POST"])
+@login_required
+def create_vote(id):
+    form = CommentVoteForm()
+    comment = Comment.query.get(id)
+    form['csrf_token'].data = request.cookies['csrf_token']
+    if form.validate_on_submit():
+        if form.data["vote"] == "true":
+            vote = CommentVote(
+                user_id=int(current_user.id),
+                comment_id=id,
+                vote=True
+            )
+            db.session.add(vote)
+            db.session.commit()
+            return comment.to_dict()
+        else:
+            vote = CommentVote(
+                user_id=int(current_user.id),
+                comment_id=id,
+                vote=False
+            )
+            db.session.add(vote)
+            db.session.commit()
+            return comment.to_dict()

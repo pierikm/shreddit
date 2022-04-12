@@ -78,6 +78,32 @@ export const deleteComment = (id) => async dispatch => {
     }
 };
 
+export const createVote = (payload, commentId) => async dispatch => {
+    const response = await fetch(`/api/comments/${commentId}/votes`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload)
+    });
+    if (response.ok) {
+        const comment = await response.json();
+        await dispatch(edit(comment));
+        return comment;
+    }
+};
+
+export const editVote = (payload, id) => async dispatch => {
+    const response = await fetch(`/api/comment_votes/${id}`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload)
+    });
+    if (response.ok) {
+        const comment = await response.json();
+        await dispatch(edit(comment));
+        return comment;
+    }
+};
+
 const initialState = {};
 
 export default function reducer(state = initialState, action) {

@@ -16,6 +16,6 @@ class CommentVote(db.Model):
         return {
             "id": self.id,
             "user_id": self.user_id,
-            "post_id": self.post_id,
+            "comment_id": self.comment_id,
             "vote": self.vote,
         }
