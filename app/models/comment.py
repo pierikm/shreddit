@@ -11,7 +11,7 @@ class Comment(db.Model):
 
     user = db.relationship("User", back_populates='comments')
     post = db.relationship("Post", back_populates='comments')
-    votes = db.relationship("CommentVote", back_populates='comment')
+    votes = db.relationship("CommentVote", back_populates='comment', cascade="all, delete-orphan")
 
     def score(self):
         score = 0

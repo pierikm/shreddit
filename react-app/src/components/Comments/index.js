@@ -59,6 +59,13 @@ function Comment({ comment, post_id, comments, parentId = null, count }) {
         }
     };
 
+    const onEnterPress = (e, func) => {
+        if (e.keyCode == 13 && e.shiftKey == false) {
+            e.preventDefault();
+            func(e);
+        }
+    }
+
     const handleVote = async (strVote) => {
         const currVote = comment.votes[user.id] ? `${comment.votes[user.id].vote}` : null;
         const voteId = comment.votes[user.id] ? comment.votes[user.id].id : null;
@@ -153,6 +160,7 @@ function Comment({ comment, post_id, comments, parentId = null, count }) {
                                     className="comment-edit-input"
                                     rows="5"
                                     value={content}
+                                    onKeyDown={(e) => onEnterPress(e, handleSubmit)}
                                     onChange={(e) => setContent(e.target.value)}
                                 />
                                 <span className="comment-edit-btns">
@@ -181,6 +189,7 @@ function Comment({ comment, post_id, comments, parentId = null, count }) {
                                 className="comment-reply-input"
                                 rows="5"
                                 value={reply}
+                                onKeyDown={(e) => onEnterPress(e, handleReply)}
                                 onChange={(e) => setReply(e.target.value)}
                             />
                             <span className="comment-reply-btns">
@@ -193,7 +202,7 @@ function Comment({ comment, post_id, comments, parentId = null, count }) {
                                     className="button reply-comment-btn"
                                     onClick={(e) => {
                                         e.preventDefault();
-                                        // setReply('');
+                                        setReply('');
                                         setReplying(false);
                                     }}>
                                     Cancel

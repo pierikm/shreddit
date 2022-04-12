@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
-import { createComment } from '../../store/comments'
-import { postLoadComments } from "../../store/comments";
+import { createComment, postLoadComments, createVote } from '../../store/comments'
 
 function CommentForm({ postId }) {
     const [content, setContent] = useState('');
@@ -22,7 +21,14 @@ function CommentForm({ postId }) {
             await dispatch(createComment(payload))
             setContent('');
             setShowErrors(false);
-            dispatch(postLoadComments(postId));
+            await dispatch(postLoadComments(postId));
+        }
+    }
+
+    const onEnterPress = (e) => {
+        if (e.keyCode == 13 && e.shiftKey == false) {
+            e.preventDefault();
+            handleSubmit(e);
         }
     }
 
@@ -55,9 +61,10 @@ function CommentForm({ postId }) {
                     className="comment-input input"
                     rows="5"
                     value={content}
+                    onKeyDown={(e) => onEnterPress(e)}
                     onChange={(e) => setContent(e.target.value)}
                 />
-                <button className="comment-btn button">Submit Comment</button>
+                <button type="submit" className="comment-btn button">Submit Comment</button>
             </form>
         </>
     )

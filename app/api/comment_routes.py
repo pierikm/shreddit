@@ -23,6 +23,13 @@ def create_comment():
         )
         db.session.add(comment)
         db.session.commit()
+        vote = CommentVote(
+                    user_id=int(current_user.id),
+                    comment_id=comment.id,
+                    vote=True
+                )
+        db.session.add(vote)
+        db.session.commit()
 
         return comment.to_dict()
 
