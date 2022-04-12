@@ -54,7 +54,18 @@
 
 .comment-section {
     margin: 1rem 0 1rem 5rem;
+    /* min-width: 100%; */
     padding-left: 0;
+}
+
+.reply-container {
+    min-width: 100%;
+}
+
+.score-comment-sep {
+    min-width: 100%;
+    padding-right: 2.5rem;
+    margin-left: 1rem;
 }
 
 .comment-section.one,
@@ -96,8 +107,11 @@
 .comment-container {
     padding: 1rem;
     max-width: 100%;
+    min-width: 100%;
     border: 1px solid #475864;
     /* border-bottom: 0px; */
+    display: flex;
+
 }
 
 .comment-edit-input {
