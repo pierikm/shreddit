@@ -52,7 +52,10 @@ function NewPostForm() {
         <div className="create-container">
             <div className="create-btns">
                 <button
-                    className={"button" + `${postType === "text" ? " selected" : ''}`}
+                    className={
+                        // eslint-disable-next-line
+                        "button" + `${postType === "text" ? " selected" : ''}`
+                    }
                     onClick={() => {
                         if (postType === "image") setShowErrors(false);
                         setPostType("text");
@@ -60,7 +63,10 @@ function NewPostForm() {
                     Text Post
                 </button>
                 <button
-                    className={"button" + `${postType === "image" ? " selected" : ''}`}
+                    className={
+                        // eslint-disable-next-line
+                        "button" + `${postType === "image" ? " selected" : ''}`
+                    }
                     onClick={() => {
                         if (postType === "text") setShowErrors(false);
                         setPostType("image");

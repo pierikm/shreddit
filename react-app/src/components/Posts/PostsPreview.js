@@ -1,9 +1,9 @@
 import { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { NavLink } from "react-router-dom";
 import { Modal2 } from '../Modal';
-import { deletePost, loadSinglePost } from "../../store/posts"
-import { createVote, deleteVote, loadVotes } from "../../store/votes";
+import { deletePost } from "../../store/posts"
+import { createVote, editVote, deleteVote } from "../../store/posts";
 import EditPostForm from "./EditPostForm";
 import "./posts.css";
 
@@ -11,34 +11,26 @@ function PostPreview({ post, userId }) {
     const [showModal, setShowModal] = useState(false);
     const [showDelete, setShowDelete] = useState(false);
     const dispatch = useDispatch();
-    const votes = useSelector(state => state.votes[post.id]);
 
     const handleDelete = async () => {
         await dispatch(deletePost(post.id))
     };
 
     const handleVote = async (strVote) => {
+        const currVote = post.votes[userId] ? `${post.votes[userId].vote}` : null;
+        const voteId = post.votes[userId] ? post.votes[userId].id : null;
         const payload = {
             vote: strVote
         };
-        if (votes[userId] === undefined) {
+        if (!currVote) {
             await dispatch(createVote(payload, post.id));
         }
-        else if (votes[userId].vote) {
-            await dispatch(deleteVote(votes[userId].id))
-            if (strVote === 'false') {
+        else if (currVote) {
+            if (strVote !== currVote) {
                 console.log("create downvote");
-                await dispatch(createVote(payload, post.id));
-            }
+                await dispatch(editVote(payload, voteId));
+            } else await dispatch(deleteVote(voteId));
         }
-        else if (!votes[userId].vote) {
-            await dispatch(deleteVote(votes[userId].id))
-            if (strVote === 'true') {
-                await dispatch(createVote(payload, post.id));
-            }
-        }
-        await dispatch(loadSinglePost(post.id));
-        await dispatch(loadVotes());
     };
 
     return (
@@ -46,7 +38,10 @@ function PostPreview({ post, userId }) {
             <div className="score-container">
                 <img
                     alt="upvote"
-                    className={'vote-icon upvote-icon' + `${votes && votes[userId]?.vote === true ? ' selected' : ''}`}
+                    className={
+                        // eslint-disable-next-line
+                        'vote-icon upvote-icon' + `${post.votes && post.votes[userId]?.vote === true ? ' selected' : ''}`
+                    }
                     src="/static/snowboard_icon.png"
                     onClick={() => handleVote('true')} />
                 <div>
@@ -54,7 +49,10 @@ function PostPreview({ post, userId }) {
                 </div>
                 <img
                     alt="downvote"
-                    className={'vote-icon downvote-icon' + `${votes && votes[userId]?.vote === false ? ' selected' : ''}`}
+                    className={
+                        // eslint-disable-next-line
+                        'vote-icon downvote-icon' + `${post.votes && post.votes[userId]?.vote === false ? ' selected' : ''}`
+                    }
                     src="/static/ski_icon.png"
                     onClick={() => handleVote('false')} />
             </div>

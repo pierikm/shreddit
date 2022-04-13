@@ -17,7 +17,6 @@ def edit_vote(id):
     form = CommentVoteForm()
     form['csrf_token'].data = request.cookies['csrf_token']
     vote = CommentVote.query.get(id)
-    print("***************", vote.user_id, current_user.id)
 
     if vote.user_id == current_user.id and form.validate_on_submit():
         if form.data['vote'] == 'true':
@@ -27,7 +26,6 @@ def edit_vote(id):
             setattr(vote, 'vote', False)
             db.session.commit()
     comment = Comment.query.get(vote.comment_id)
-    # print("**************", comment.to_dict())
     return comment.to_dict()
 
 @comment_vote_routes.route('/<int:id>', methods=["DELETE"])

@@ -1,27 +1,20 @@
 import { useEffect, useState } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 import PostPreview from "./PostsPreview";
 import SideBar from "../SideBar";
-import { loadPosts } from "../../store/posts";
 
 function Posts() {
     const [isLoaded, setIsLoaded] = useState(false);
     const [sortBy, setSortBy] = useState(window.sessionStorage.getItem("sortBy") ?
         window.sessionStorage.getItem("sortBy") : "new");
     const [sortedPosts, setSortedPosts] = useState([])
-    const dispatch = useDispatch();
     const posts = useSelector(state => {
-        // const arr = Object.values(state.posts)
-        // if (sortBy === 'top') arr.sort((a, b) => b.score - a.score);
-        // else if (sortBy === 'new') arr.sort((a, b) => b.id - a.id);
-        // else if (sortBy === 'old') arr.sort((a, b) => a.id - b.id);
         return state.posts;
     });
     const user = useSelector(state => state.session.user);
 
     useEffect(() => {
         changeSort(sortBy);
-        // setSortedPosts(posts);
         setIsLoaded(true);
     }, []);
 
@@ -40,7 +33,6 @@ function Posts() {
             setSortedPosts(postsArr.sort((a, b) => a.id - b.id));
         }
         setSortBy(sort);
-        // await dispatch(loadPosts());
     }
 
     if (!isLoaded) return null;
@@ -50,17 +42,26 @@ function Posts() {
             <div className="sort-btn-container">
                 <div>Sort by</div>
                 <button
-                    className={"button" + `${sortBy === "top" ? ' sort' : ''}`}
+                    className={
+                        // eslint-disable-next-line
+                        "button" + `${sortBy === "top" ? ' sort' : ''}`
+                    }
                     onClick={() => changeSort("top")}>
                     Top
                 </button>
                 <button
-                    className={"button" + `${sortBy === "new" ? ' sort' : ''}`}
+                    className={
+                        // eslint-disable-next-line
+                        "button" + `${sortBy === "new" ? ' sort' : ''}`
+                    }
                     onClick={() => changeSort("new")}>
                     New
                 </button>
                 <button
-                    className={"button" + `${sortBy === "old" ? ' sort' : ''}`}
+                    className={
+                        // eslint-disable-next-line
+                        "button" + `${sortBy === "old" ? ' sort' : ''}`
+                    }
                     onClick={() => changeSort("old")}>
                     Old
                 </button>
