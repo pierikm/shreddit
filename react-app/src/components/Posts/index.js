@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import PostPreview from "./PostsPreview";
 import SideBar from "../SideBar";
-import { loadPosts } from "../../store/posts";
+// import { loadPosts } from "../../store/posts";
 
 function Posts() {
     const [isLoaded, setIsLoaded] = useState(false);

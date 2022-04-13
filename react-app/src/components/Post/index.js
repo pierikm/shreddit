@@ -2,8 +2,7 @@ import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useParams, useHistory } from "react-router-dom";
 import { Modal2 } from '../Modal';
-import { deletePost, loadSinglePost } from "../../store/posts"
-import { createVote, deleteVote } from "../../store/votes";
+import { deletePost, createVote, editVote, deleteVote } from "../../store/posts"
 import EditPostForm from "../Posts/EditPostForm";
 import CommentForm from "../Comments/CommentForm";
 import Comment from "../Comments";
@@ -32,28 +31,20 @@ function Post() {
     };
 
     const handleVote = async (strVote) => {
-        console.log(votes);
+        const currVote = post.votes[user.id] ? `${post.votes[user.id].vote}` : null;
+        const voteId = post.votes[user.id] ? post.votes[user.id].id : null;
         const payload = {
             vote: strVote
         };
-        if (votes[user.id] === undefined) {
+        if (!currVote) {
             await dispatch(createVote(payload, post.id));
         }
-        else if (votes[user.id].vote) {
-            await dispatch(deleteVote(votes[user.id].id))
-            if (strVote === 'false') {
+        else if (currVote) {
+            if (strVote !== currVote) {
                 console.log("create downvote");
-                await dispatch(createVote(payload, post.id));
-            }
+                await dispatch(editVote(payload, voteId));
+            } else await dispatch(deleteVote(voteId));
         }
-        else if (!votes[user.id].vote) {
-            await dispatch(deleteVote(votes[user.id].id))
-            if (strVote === 'true') {
-                await dispatch(createVote(payload, postId));
-            }
-        }
-        await dispatch(loadSinglePost(postId));
-        // await dispatch(loadVotes());
     };
 
     useEffect(() => {

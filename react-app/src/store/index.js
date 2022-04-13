@@ -8,8 +8,7 @@ import votes from './votes';
 const rootReducer = combineReducers({
   session,
   posts,
-  comments,
-  votes,
+  comments
 });
 
 

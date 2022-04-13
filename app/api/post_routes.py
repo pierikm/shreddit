@@ -26,6 +26,7 @@ def load_comments(id):
 @login_required
 def create_vote(id):
     form = VoteForm()
+    post = Post.query.get(id)
     form['csrf_token'].data = request.cookies['csrf_token']
     if form.validate_on_submit():
         if form.data["vote"] == "true":
@@ -36,7 +37,7 @@ def create_vote(id):
             )
             db.session.add(vote)
             db.session.commit()
-            return {vote.post_id : vote.to_dict()}
+            return post.to_dict()
         else:
             vote = Vote(
                 user_id=int(current_user.id),
@@ -45,7 +46,7 @@ def create_vote(id):
             )
             db.session.add(vote)
             db.session.commit()
-            return {vote.post_id : vote.to_dict()}
+            return post.to_dict()
 
 
 @post_routes.route('/', methods=["POST"])

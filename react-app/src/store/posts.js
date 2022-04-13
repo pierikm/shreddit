@@ -80,6 +80,46 @@ export const deletePost = (id) => async dispatch => {
     }
 };
 
+export const createVote = (payload, postId) => async dispatch => {
+    const response = await fetch(`/api/posts/${postId}/votes`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload)
+    });
+    if (response.ok) {
+        const post = await response.json();
+        console.log(post);
+        await dispatch(edit(post));
+        return post;
+    }
+};
+
+export const editVote = (payload, id) => async dispatch => {
+    const response = await fetch(`/api/votes/${id}`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload)
+    });
+    if (response.ok) {
+        const post = await response.json();
+        console.log(post);
+        await dispatch(edit(post));
+        return post;
+    }
+};
+
+export const deleteVote = (id) => async dispatch => {
+    const response = await fetch(`/api/votes/${id}`, {
+        method: "DELETE"
+    });
+    if (response.ok) {
+        const post = await response.json();
+        console.log(post);
+        await dispatch(edit(post));
+        return post;
+    }
+};
+
 const initialState = {};
 
 export default function reducer(state = initialState, action) {

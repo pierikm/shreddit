@@ -80,14 +80,6 @@ function Comment({ comment, post_id, comments, parentId = null, count }) {
             if (currVote !== strVote) await dispatch(editVote(payload, voteId));
             else await dispatch(deleteVote(voteId));
         }
-        else if (!comment?.votes[user.id].vote) {
-            // await dispatch(deleteVote(votes[userId].id))
-            if (strVote === 'true') {
-                // await dispatch(createVote(payload, post.id));
-            }
-        }
-        // await dispatch(loadSinglePost(post.id));
-        // await dispatch(loadVotes());
     };
 
     useEffect(() => {
