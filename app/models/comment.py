@@ -11,11 +11,23 @@ class Comment(db.Model):
 
     user = db.relationship("User", back_populates='comments')
     post = db.relationship("Post", back_populates='comments')
+    votes = db.relationship("CommentVote", back_populates='comment', cascade="all, delete-orphan")
+
+    def score(self):
+        score = 0
+        for vote in self.votes:
+            if vote.vote:
+                score += 1
+            else:
+                score -= 1
+        return score
 
     def to_dict(self):
         return {
             "id": self.id,
             "user": self.user.to_dict(),
             "parent_id": self.parent_id,
-            "content": self.content
+            "content": self.content,
+            "score": self.score(),
+            "votes": { vote.user_id: vote.to_dict() for vote in self.votes },
         }

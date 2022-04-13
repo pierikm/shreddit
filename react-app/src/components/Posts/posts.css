@@ -36,7 +36,7 @@ h2.post-title:hover {
     filter: invert(14%) sepia(100%) saturate(6460%) hue-rotate(278deg) brightness(103%) contrast(123%);
 }
 
-.post-preview-list > li {
+.post-preview-list>li {
     list-style: none;
     display: flex;
     margin: 1rem 0 0;
@@ -76,7 +76,7 @@ h2.post-title:hover {
     display: flex;
 }
 
-.preview-user-btns > button {
+.preview-user-btns>button {
     margin: 0 0.5rem 0;
     border-radius: 4px;
 }
@@ -98,6 +98,7 @@ h2.post-title:hover {
 .sidebar {
     min-width: 10rem;
     margin-right: 0.5rem;
+    margin-left: 1rem;
 }
 
 .create-post-link {
@@ -137,14 +138,14 @@ h2.post-title:hover {
     padding-left: 15rem;
 }
 
-.sort-btn-container > * {
+.sort-btn-container>* {
     margin: 0 0.5rem 0;
     font-size: 1rem;
     position: relative;
     top: 1px;
 }
 
-.sort-btn-container > button {
+.sort-btn-container>button {
     height: 100%;
     padding: 0.2rem 0.5rem 0;
     border-bottom-left-radius: 0;
@@ -154,4 +155,3 @@ h2.post-title:hover {
 button.sort {
     border-bottom: 1px solid var(--bg-base);
 }
-

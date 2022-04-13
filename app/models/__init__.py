@@ -3,3 +3,4 @@ from .user import User
 from .post import Post
 from .comment import Comment
 from .vote import Vote
+from .comment_vote import CommentVote
