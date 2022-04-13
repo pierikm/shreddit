@@ -88,7 +88,7 @@ export const createVote = (payload, postId) => async dispatch => {
     });
     if (response.ok) {
         const post = await response.json();
-        console.log(post);
+        // console.log(post);
         await dispatch(edit(post));
         return post;
     }
@@ -102,7 +102,7 @@ export const editVote = (payload, id) => async dispatch => {
     });
     if (response.ok) {
         const post = await response.json();
-        console.log(post);
+        // console.log(post);
         await dispatch(edit(post));
         return post;
     }
@@ -114,7 +114,7 @@ export const deleteVote = (id) => async dispatch => {
     });
     if (response.ok) {
         const post = await response.json();
-        console.log(post);
+        // console.log(post);
         await dispatch(edit(post));
         return post;
     }

@@ -7,6 +7,7 @@ function Footer() {
             <a
                 className='footer-ele'
                 href='https://github.com/pierikm/shreddit'
+                rel="noreferrer"
                 target="_blank">
                 <i
                     className='footer-icon fa-brands fa-github fa-xl'>
@@ -15,6 +16,7 @@ function Footer() {
             <a
                 className='footer-ele'
                 href='https://www.linkedin.com/in/matthew-pierik-197042156/'
+                rel="noreferrer"
                 target="_blank">
                 <i
                     className='footer-icon fa-brands fa-linkedin fa-xl'>

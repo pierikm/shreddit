@@ -3,7 +3,7 @@ import thunk from 'redux-thunk';
 import session from './session'
 import posts from './posts';
 import comments from './comments';
-import votes from './votes';
+// import votes from './votes';
 
 const rootReducer = combineReducers({
   session,

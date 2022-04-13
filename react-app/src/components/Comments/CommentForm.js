@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
-import { createComment, postLoadComments, createVote } from '../../store/comments'
+import { createComment, postLoadComments } from '../../store/comments'
 
 function CommentForm({ postId }) {
     const [content, setContent] = useState('');
@@ -26,7 +26,7 @@ function CommentForm({ postId }) {
     }
 
     const onEnterPress = (e) => {
-        if (e.keyCode == 13 && e.shiftKey == false) {
+        if (e.keyCode === 13 && e.shiftKey === false) {
             e.preventDefault();
             handleSubmit(e);
         }

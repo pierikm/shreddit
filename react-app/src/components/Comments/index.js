@@ -19,7 +19,7 @@ function Comment({ comment, post_id, comments, parentId = null, count }) {
     const [errors, setErrors] = useState([]);
     const user = useSelector(state => state.session.user);
 
-    const commentsArr = Object.values(comments);
+    // const commentsArr = Object.values(comments);
     const countStr = countToStr(count);
 
     const dispatch = useDispatch();
@@ -60,7 +60,7 @@ function Comment({ comment, post_id, comments, parentId = null, count }) {
     };
 
     const onEnterPress = (e, func) => {
-        if (e.keyCode == 13 && e.shiftKey == false) {
+        if (e.keyCode === 13 && e.shiftKey === false) {
             e.preventDefault();
             func(e);
         }
@@ -97,7 +97,10 @@ function Comment({ comment, post_id, comments, parentId = null, count }) {
                 <div className="score-container">
                     <img
                         alt="upvote"
-                        className={'vote-icon upvote-icon' + `${comment.votes && comment.votes[user.id]?.vote === true ? ' selected' : ''}`}
+                        className={
+                            // eslint-disable-next-line
+                            'vote-icon upvote-icon' + `${comment.votes && comment.votes[user.id]?.vote === true ? ' selected' : ''}`
+                        }
                         src="/static/snowboard_icon.png"
                         onClick={() => handleVote('true')} />
                     <div>
@@ -105,7 +108,10 @@ function Comment({ comment, post_id, comments, parentId = null, count }) {
                     </div>
                     <img
                         alt="downvote"
-                        className={'vote-icon downvote-icon' + `${comment.votes && comment.votes[user.id]?.vote === false ? ' selected' : ''}`}
+                        className={
+                            // eslint-disable-next-line
+                            'vote-icon downvote-icon' + `${comment.votes && comment.votes[user.id]?.vote === false ? ' selected' : ''}`
+                        }
                         src="/static/ski_icon.png"
                         onClick={() => handleVote('false')} />
                 </div>
