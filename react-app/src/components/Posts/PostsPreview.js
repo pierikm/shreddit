@@ -33,6 +33,8 @@ function PostPreview({ post, userId }) {
         }
     };
 
+    if (!post) return null;
+
     return (
         <>
             <div className="score-container">

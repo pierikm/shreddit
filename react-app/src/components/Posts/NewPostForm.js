@@ -36,9 +36,7 @@ function NewPostForm() {
 
         if (!errors.length) {
             const newPost = await dispatch(createPost(payload))
-            await dispatch(createVote({ vote: "true" }, newPost.id));
-            await dispatch(loadPosts());
-            await dispatch(loadVotes());
+            // await dispatch(loadPosts());
             redirect();
         }
     }

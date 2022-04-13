@@ -8,9 +8,7 @@ function Posts() {
     const [sortBy, setSortBy] = useState(window.sessionStorage.getItem("sortBy") ?
         window.sessionStorage.getItem("sortBy") : "new");
     const [sortedPosts, setSortedPosts] = useState([])
-    const posts = useSelector(state => {
-        return state.posts;
-    });
+    const posts = useSelector(state => state.posts);
     const user = useSelector(state => state.session.user);
 
     useEffect(() => {

@@ -63,6 +63,13 @@ def create_post():
         )
         db.session.add(post)
         db.session.commit()
+        vote = Vote(
+            user_id=int(current_user.id),
+            post_id=post.id,
+            vote=True
+        )
+        db.session.add(vote)
+        db.session.commit()
 
         return post.to_dict()
 

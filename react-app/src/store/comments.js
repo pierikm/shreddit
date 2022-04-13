@@ -72,7 +72,7 @@ export const deleteComment = (id) => async dispatch => {
         method: "DELETE"
     });
     if (response.ok) {
-        const commentId = response.json();
+        const commentId = await response.json();
         await dispatch(del(commentId));
         return commentId;
     }

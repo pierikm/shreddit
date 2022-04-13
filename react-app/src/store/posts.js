@@ -52,7 +52,7 @@ export const createPost = (payload) => async dispatch => {
         body: JSON.stringify(payload)
     });
     if (response.ok) {
-        const post = response.json();
+        const post = await response.json();
         await dispatch(create(post));
         return post;
     }
@@ -65,7 +65,7 @@ export const editPost = (payload, id) => async dispatch => {
         body: JSON.stringify(payload)
     });
     if (response.ok) {
-        const post = response.json();
+        const post = await response.json();
         await dispatch(edit(post));
     }
 };
