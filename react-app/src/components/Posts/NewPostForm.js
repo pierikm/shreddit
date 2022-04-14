@@ -29,9 +29,6 @@ function NewPostForm() {
         if (postType === "image") payload.image_url = image_url;
         else payload.description = description;
 
-
-        console.log(errors);
-
         setShowErrors(true);
 
         if (!errors.length) {

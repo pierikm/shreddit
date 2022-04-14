@@ -19,7 +19,6 @@ function EditPostForm({ post, setShowModal }) {
     useEffect(() => {
         if (postType === "image") validatePost(postType, title, undefined, image_url, setErrors)
         else validatePost(postType, title, description, undefined, setErrors)
-        console.log(image_url);
     }, [postType, title, description, image_url])
 
     const handleSubmit = async (e) => {

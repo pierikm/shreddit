@@ -27,7 +27,6 @@ function PostPreview({ post, userId }) {
         }
         else if (currVote) {
             if (strVote !== currVote) {
-                console.log("create downvote");
                 await dispatch(editVote(payload, voteId));
             } else await dispatch(deleteVote(voteId));
         }

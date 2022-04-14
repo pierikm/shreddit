@@ -72,7 +72,6 @@ function Comment({ comment, post_id, comments, parentId = null, count }) {
         const payload = {
             vote: strVote
         };
-        console.log(currVote);
         if (!currVote) {
             await dispatch(createVote(payload, comment.id));
         }
