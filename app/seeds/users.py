@@ -1,14 +1,24 @@
+from datetime import datetime, timezone
 from app.models import db, User
 
 
 # Adds a demo user, you can add other users here if you want
 def seed_users():
     demo = User(
-        username='Demo', email='demo@aa.io', password='password')
+        username='Demo',
+        email='demo@aa.io',
+        password='password',
+        create_time=datetime.now(timezone.utc))
     marnie = User(
-        username='marnie', email='marnie@aa.io', password='password')
+        username='marnie',
+        email='marnie@aa.io',
+        password='password',
+        create_time=datetime.now(timezone.utc))
     bobbie = User(
-        username='bobbie', email='bobbie@aa.io', password='password')
+        username='bobbie',
+        email='bobbie@aa.io',
+        password='password',
+        create_time=datetime.now(timezone.utc))
 
     db.session.add(demo)
     db.session.add(marnie)

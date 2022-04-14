@@ -1,7 +1,7 @@
 from turtle import title
 from flask import Blueprint, request
 from flask_login import current_user, login_required
-from sqlalchemy import null
+from datetime import datetime, time, tzinfo
 from app.models import db, Comment
 from app.forms.comment_form import CommentForm
 from app.forms.comment_vote_form import CommentVoteForm
@@ -19,7 +19,9 @@ def create_comment():
             user_id=int(current_user.id),
             post_id=int(form.data["post_id"]),
             parent_id=form.data["parent_id"],
-            content=form.data["content"]
+            content=form.data["content"],
+            create_time=datetime.now(),
+            update_time=datetime.now(),
         )
         db.session.add(comment)
         db.session.commit()
@@ -41,6 +43,7 @@ def edit_comment(id):
     comment = Comment.query.get(id)
     if comment.user_id == current_user.id:
         setattr(comment, 'content', form.data["content"])
+        setattr(comment, "update_time", datetime.now())
         db.session.commit()
         return comment.to_dict()
 

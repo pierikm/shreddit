@@ -8,6 +8,8 @@ class Comment(db.Model):
     post_id = db.Column(db.Integer, db.ForeignKey("posts.id"), nullable=False)
     parent_id = db.Column(db.Integer)
     content = db.Column(db.Text, nullable=False)
+    create_time = db.Column(db.DateTime(timezone=True), nullable=False)
+    update_time = db.Column(db.DateTime(timezone=True), nullable=False)
 
     user = db.relationship("User", back_populates='comments')
     post = db.relationship("Post", back_populates='comments')
