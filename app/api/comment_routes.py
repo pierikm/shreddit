@@ -1,7 +1,6 @@
-from turtle import title
 from flask import Blueprint, request
 from flask_login import current_user, login_required
-from datetime import datetime, time, tzinfo
+from datetime import datetime, timezone
 from app.models import db, Comment
 from app.forms.comment_form import CommentForm
 from app.forms.comment_vote_form import CommentVoteForm
@@ -13,6 +12,7 @@ comment_routes = Blueprint('comments', __name__)
 @login_required
 def create_comment():
     form = CommentForm()
+    now = datetime.now(timezone.utc)
     form['csrf_token'].data = request.cookies['csrf_token']
     if form.validate_on_submit():
         comment = Comment(
@@ -20,8 +20,8 @@ def create_comment():
             post_id=int(form.data["post_id"]),
             parent_id=form.data["parent_id"],
             content=form.data["content"],
-            create_time=datetime.now(),
-            update_time=datetime.now(),
+            create_time=datetime.now(timezone.utc),
+            update_time=datetime.now(timezone.utc),
         )
         db.session.add(comment)
         db.session.commit()
@@ -33,19 +33,20 @@ def create_comment():
         db.session.add(vote)
         db.session.commit()
 
-        return comment.to_dict()
+        return comment.to_dict(now)
 
 @comment_routes.route('/<int:id>', methods=['PUT'])
 @login_required
 def edit_comment(id):
     form = CommentForm()
+    now = datetime.now(timezone.utc)
     form['csrf_token'].data = request.cookies['csrf_token']
     comment = Comment.query.get(id)
     if comment.user_id == current_user.id:
         setattr(comment, 'content', form.data["content"])
-        setattr(comment, "update_time", datetime.now())
+        setattr(comment, "update_time", datetime.now(timezone.utc))
         db.session.commit()
-        return comment.to_dict()
+        return comment.to_dict(now)
 
 @comment_routes.route('/<int:id>', methods=['DELETE'])
 @login_required
@@ -63,6 +64,7 @@ def create_vote(id):
     comment = Comment.query.get(id)
     form['csrf_token'].data = request.cookies['csrf_token']
     if form.validate_on_submit():
+        now = datetime.now(timezone.utc)
         if form.data["vote"] == "true":
             vote = CommentVote(
                 user_id=int(current_user.id),
@@ -71,7 +73,7 @@ def create_vote(id):
             )
             db.session.add(vote)
             db.session.commit()
-            return comment.to_dict()
+            return comment.to_dict(now)
         else:
             vote = CommentVote(
                 user_id=int(current_user.id),
@@ -80,4 +82,4 @@ def create_vote(id):
             )
             db.session.add(vote)
             db.session.commit()
-            return comment.to_dict()
+            return comment.to_dict(now)

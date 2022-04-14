@@ -120,7 +120,7 @@ function Comment({ comment, post_id, comments, parentId = null, count }) {
                         <span className="comment-username">
                             {comment.user.username}
                         </span>
-                        <span></span>
+                        <span className="comment-timestamp"> - {comment.timestamp}</span>
                     </div>
                     {!editing &&
                         <>

@@ -1,4 +1,4 @@
-from datetime import datetime, timedelta
+from datetime import datetime, timezone, timedelta
 from .db import db
 
 class Post(db.Model):
@@ -26,7 +26,8 @@ class Post(db.Model):
         return score
 
     def get_comments(self):
-        return { comment.id: comment.to_dict() for comment in self.comments }
+        now = datetime.now(timezone.utc)
+        return { comment.id: comment.to_dict(now) for comment in self.comments }
 
     def get_votes(self):
         return { vote.user_id: vote.to_dict() for vote in self.votes }
@@ -34,18 +35,29 @@ class Post(db.Model):
     def get_timestamp(self, now):
         # print("*********", now)
         dif = now - self.create_time
-        print("*********", type(dif))
+        # print("*********", type(dif))
         if dif < timedelta(minutes=1):
             return 'less than a minute ago'
         elif dif < timedelta(hours=1):
+            if(int(dif.seconds / 60) == 1):
+                return '1 minute ago'
             return f'{int(dif.seconds / 60)} minutes ago'
         elif dif < timedelta(days=1):
+            if(int(dif.seconds / 3600) == 1):
+                return '1 hour ago'
             return f'{int(dif.seconds / 3600)} hours ago'
         elif dif < timedelta(months=1):
-            return f'{int(dif.days)} ago'
+            if(int(dif.days) == 1):
+                return '1 day ago'
+            return f'{int(dif.days)} days ago'
         elif dif < timedelta(years=1):
-            return f'{int(dif.days / 365)} ago'
-        return 'now'
+            if(int(dif.days) / 30 == 1):
+                return '1 month ago'
+            return f'{int(dif.days / 30)} months ago'
+        else:
+            if(int(dif.days) / 365 == 1):
+                return '1 year ago'
+            return f'{int(dif.days / 365)} years ago'
 
     def to_dict(self, now):
         return {
@@ -55,7 +67,7 @@ class Post(db.Model):
             "title": self.title,
             "description": self.description,
             "image_url": self.image_url,
-            "comments": { comment.id: comment.to_dict() for comment in self.comments },
+            "comments": { comment.id: comment.to_dict(now) for comment in self.comments },
             "votes": { vote.user_id: vote.to_dict() for vote in self.votes },
             "score": self.score(),
             "timestamp": self.get_timestamp(now)
