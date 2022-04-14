@@ -1,5 +1,6 @@
 from flask import Blueprint, request
 from flask_login import current_user, login_required
+from datetime import datetime, timezone
 from app.forms.vote_form import VoteForm
 from app.models import db, Post, Vote, post
 
@@ -14,6 +15,7 @@ def load_votes():
 @login_required
 def edit_vote(id):
     form = VoteForm()
+    now = datetime.now(timezone.utc)
     form['csrf_token'].data = request.cookies['csrf_token']
     vote = Vote.query.get(id)
 
@@ -25,12 +27,13 @@ def edit_vote(id):
             setattr(vote, 'vote', False)
             db.session.commit()
     post = Post.query.get(vote.post_id)
-    return post.to_dict()
+    return post.to_dict(now)
 
 @vote_routes.route('/<int:id>', methods=["DELETE"])
 def delete_vote(id):
+    now = datetime.now(timezone.utc)
     vote = Vote.query.get(id)
     post = Post.query.get(vote.post_id)
     db.session.delete(vote)
     db.session.commit()
-    return post.to_dict()
+    return post.to_dict(now)

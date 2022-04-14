@@ -121,6 +121,10 @@ export default function reducer(state = initialState, action) {
         case LOAD:
             const loadState = { ...action.comments };
             return loadState;
+        case CREATE:
+            const createState = { ...state };
+            createState[action.comment.id] = action.comment;
+            return createState;
         case EDIT:
             const editState = { ...state };
             if (editState[action.comment.id]) editState[action.comment.id] = action.comment;

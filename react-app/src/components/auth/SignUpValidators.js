@@ -23,7 +23,6 @@ export const safeData = (data) => {
 
     data.forEach(ele => {
         const split = ele.split(" : ");
-        // console.log(ele.split(" : "));
         newData.push(split[1]);
     })
 

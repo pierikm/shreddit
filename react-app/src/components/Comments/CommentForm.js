@@ -18,10 +18,11 @@ function CommentForm({ postId }) {
         setShowErrors(true)
 
         if (!errors.length) {
-            await dispatch(createComment(payload))
+            const comment = await dispatch(createComment(payload));
             setContent('');
             setShowErrors(false);
-            await dispatch(postLoadComments(postId));
+            // await dispatch(postLoadComments(postId));
+            handleScroll(comment.id);
         }
     }
 
@@ -31,6 +32,14 @@ function CommentForm({ postId }) {
             handleSubmit(e);
         }
     }
+
+    const handleScroll = (id) => {
+        const com = document.getElementById(`comment-${id}`);
+        window.scrollTo({
+            top: com.offsetTop,
+            behavior: "smooth"
+        })
+    };
 
     const commentValidator = () => {
         const errors = [];

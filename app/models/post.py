@@ -33,9 +33,7 @@ class Post(db.Model):
         return { vote.user_id: vote.to_dict() for vote in self.votes }
 
     def get_timestamp(self, now):
-        # print("*********", now)
         dif = now - self.create_time
-        # print("*********", type(dif))
         if dif < timedelta(minutes=1):
             return 'less than a minute ago'
         elif dif < timedelta(hours=1):

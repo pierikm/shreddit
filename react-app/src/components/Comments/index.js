@@ -72,7 +72,6 @@ function Comment({ comment, post_id, comments, parentId = null, count }) {
         const payload = {
             vote: strVote
         };
-        console.log(currVote);
         if (!currVote) {
             await dispatch(createVote(payload, comment.id));
         }
@@ -93,7 +92,7 @@ function Comment({ comment, post_id, comments, parentId = null, count }) {
 
     return (
         <>
-            <div className='comment-container'>
+            <div id={`comment-${comment.id}`} className='comment-container'>
                 <div className="score-container">
                     <img
                         alt="upvote"

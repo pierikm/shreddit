@@ -19,7 +19,7 @@ function NewPostForm() {
 
     const dispatch = useDispatch();
     const history = useHistory();
-    const redirect = () => history.replace(`/posts`);
+    const redirect = (id) => history.replace(`/posts/${id}`);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -29,15 +29,11 @@ function NewPostForm() {
         if (postType === "image") payload.image_url = image_url;
         else payload.description = description;
 
-
-        console.log(errors);
-
         setShowErrors(true);
 
         if (!errors.length) {
             const newPost = await dispatch(createPost(payload))
-            // await dispatch(loadPosts());
-            redirect();
+            redirect(newPost.id);
         }
     }
 
