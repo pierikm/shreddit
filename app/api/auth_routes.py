@@ -1,4 +1,5 @@
 from flask import Blueprint, jsonify, session, request
+from datetime import datetime
 from app.models import User, db
 from app.forms import LoginForm
 from app.forms import SignUpForm
@@ -65,7 +66,8 @@ def sign_up():
         user = User(
             username=form.data['username'],
             email=form.data['email'],
-            password=form.data['password']
+            password=form.data['password'],
+            create_time=datetime.now()
         )
         db.session.add(user)
         db.session.commit()

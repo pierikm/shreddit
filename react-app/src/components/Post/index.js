@@ -97,6 +97,9 @@ function Post() {
                                 </a>
                             }
                             <span className="preview-user-btns">
+                            <span className="preview-posted-by">posted by</span>
+                            <span className="preview-username">{post.username}</span>
+                            <span>{post.timestamp}</span>
                                 {user?.id === post?.user_id &&
                                     <>
                                         <button

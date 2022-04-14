@@ -75,6 +75,7 @@ function PostPreview({ post, userId }) {
                 <div className="preview-user-container">
                     <span className="preview-posted-by">posted by</span>
                     <span className="preview-username">{post.username}</span>
+                    <span>{post.timestamp}</span>
                     {userId === post.user_id &&
                         <span className="preview-user-btns">
                             <button

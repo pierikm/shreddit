@@ -16,6 +16,14 @@
     background-color: var(--bg-base);
 }
 
+.post-description {
+    border: 1px solid #475864;
+    border-radius: 0.5rem;
+    padding: 1rem;
+    background-color: #191b1d;
+    margin-bottom: 0.5rem;
+}
+
 .post-page {
     display: flex;
     justify-content: space-between;
@@ -140,4 +148,8 @@
 .comment-content {
     max-width: 60rem;
     word-wrap: break-word;
+}
+
+.comment-timestamp {
+    font-size: 0.8rem;
 }
