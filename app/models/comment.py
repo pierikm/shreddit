@@ -37,11 +37,11 @@ class Comment(db.Model):
             if(int(dif.seconds / 3600) == 1):
                 return '1 hour ago'
             return f'{int(dif.seconds / 3600)} hours ago'
-        elif dif < timedelta(months=1):
+        elif dif < timedelta(days=30):
             if(int(dif.days) == 1):
                 return '1 day ago'
             return f'{int(dif.days)} days ago'
-        elif dif < timedelta(years=1):
+        elif dif < timedelta(days=365):
             if(int(dif.days) / 30 == 1):
                 return '1 month ago'
             return f'{int(dif.days / 30)} months ago'
